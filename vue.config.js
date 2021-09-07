@@ -1,4 +1,4 @@
-const path = require('path')
+// const path = require('path')
 module.exports = {
   outputDir: './build',
   // 第一种配置方式 最后会合并
