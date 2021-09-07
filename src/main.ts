@@ -4,4 +4,4 @@ import router from './router'
 import store from './store'
 
 createApp(App).use(store).use(router).mount('#app')
-console.log('hello world')
+console.log('hello world哈哈哈')
