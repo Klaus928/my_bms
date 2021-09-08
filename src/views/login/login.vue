@@ -1,15 +1,30 @@
 <template>
   <div>
-    <el-button>hi</el-button>
+    <el-button @click="handleClick">{{ $store.state.count }}</el-button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, getCurrentInstance } from 'vue'
 
 export default defineComponent({
-  setup() {
-    return {}
+  created() {
+    // this.$http.request({
+    //   method: 'get',
+    //   url: '/home/multidata'
+    // })
+  },
+  setup(props, context) {
+    const x = getCurrentInstance()
+    const handleClick = () => {
+      if (x?.proxy) {
+        x.proxy.$http.request({
+          method: 'get',
+          url: '/home/multidata'
+        })
+      }
+    }
+    return { handleClick }
   }
 })
 </script>
