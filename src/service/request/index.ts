@@ -30,9 +30,10 @@ class myRequest {
       }
     )
     this.instance.interceptors.response.use(
-      (config) => {
+      (res) => {
         console.log('详情总拦截成功')
-        return config
+        const data = res.data
+        return data
       },
       (err) => {
         console.log(err.response.status)
@@ -44,10 +45,31 @@ class myRequest {
       }
     )
   }
-  request(options: myRequestConfig) {
-    this.instance.request(options).then((res) => {
-      console.log(res)
+  request<T>(options: myRequestConfig): Promise<T> {
+    return new Promise((resolve, reject) => {
+      // 单个请求对request的拦截
+      // 判断是否显示loading
+      this.instance
+        .request<any, T>(options)
+        .then((res) => {
+          resolve(res)
+        })
+        .catch((err) => {
+          reject(err)
+        })
     })
+  }
+  get<T>(options: myRequestConfig): Promise<T> {
+    return this.instance.request({ ...options, method: 'GET' })
+  }
+  post<T>(options: myRequestConfig): Promise<T> {
+    return this.instance.request({ ...options, method: 'POST' })
+  }
+  delete<T>(options: myRequestConfig): Promise<T> {
+    return this.instance.request({ ...options, method: 'DELETE' })
+  }
+  patch<T>(options: myRequestConfig): Promise<T> {
+    return this.instance.request({ ...options, method: 'PATCH' })
   }
 }
 export default myRequest

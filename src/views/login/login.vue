@@ -1,32 +1,30 @@
 <template>
-  <div>
-    <el-button @click="handleClick">{{ $store.state.count }}</el-button>
+  <div class="login-panel">
+    <LoginPanel />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, getCurrentInstance } from 'vue'
-
+import { loginState } from '@/store'
+import LoginPanel from './components/login-panel.vue'
 export default defineComponent({
-  created() {
-    // this.$http.request({
-    //   method: 'get',
-    //   url: '/home/multidata'
-    // })
-  },
+  components: { LoginPanel },
   setup(props, context) {
-    const x = getCurrentInstance()
+    const loginStore = loginState()
     const handleClick = () => {
-      if (x?.proxy) {
-        x.proxy.$http.request({
-          method: 'get',
-          url: '/home/multidata'
-        })
-      }
+      console.log(loginStore)
     }
-    return { handleClick }
+    return { handleClick, loginStore }
   }
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.login-panel {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
