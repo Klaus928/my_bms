@@ -11,11 +11,14 @@ module.exports = {
     }
   },
   devServer: {
+    port: 8100,
     proxy: {
-      '/api': {
-        target: 'http://10.1.2.107:8085/api',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
+      '^/api': {
+        target: 'http://152.136.185.210:5000',
+        pathRewrite: {
+          '^/api': ''
+        },
+        changeOrigin: true
       }
     }
   }

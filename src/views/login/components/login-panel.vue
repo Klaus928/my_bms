@@ -1,8 +1,8 @@
 <template>
   <div class="login-container">
     <div class="title">后台管理系统</div>
-    <el-tabs type="border-card" :stretch="true">
-      <el-tab-pane label="手机登陆">
+    <el-tabs type="border-card" :stretch="true" v-model="currentTab">
+      <el-tab-pane label="手机登陆" name="account">
         <template #label>
           <span>
             <el-icon> <avatar /> </el-icon> 手机登陆</span
@@ -10,7 +10,7 @@
         </template>
         <LoginByAccount ref="accountRef" />
       </el-tab-pane>
-      <el-tab-pane label="账号登陆">
+      <el-tab-pane label="账号登陆" name="phone">
         <template #label>
           <span>
             <el-icon> <iphone /> </el-icon> 账号登陆</span
@@ -41,11 +41,17 @@ export default defineComponent({
   setup() {
     let isRememberPwd = ref(false)
     const accountRef = ref<InstanceType<typeof LoginByAccount>>()
+    const currentTab = ref<string>('account')
     const handleLogin = () => {
-      console.log(accountRef.value?.ruleForm)
-      accountRef.value?.loginAction(isRememberPwd.value)
+      // 账号登录
+      if (currentTab.value === 'account') {
+        accountRef.value?.loginAction(isRememberPwd.value)
+      } else {
+        // 手机登录
+        console.log('phone Login...')
+      }
     }
-    return { handleLogin, isRememberPwd, accountRef }
+    return { isRememberPwd, currentTab, accountRef, handleLogin }
   }
 })
 </script>
