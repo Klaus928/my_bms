@@ -14,8 +14,13 @@
         v-model.number="ruleForm.password"
         type="password"
         autocomplete="off"
-      ></el-input>
-      <el-button>获取验证码</el-button>
+      >
+        <template #append>
+          <el-button @click="handleGetVerifyCode" style="color: #007fff"
+            >获取验证码</el-button
+          >
+        </template>
+      </el-input>
     </el-form-item>
   </el-form>
 </template>
@@ -47,7 +52,10 @@ export default defineComponent({
         }
       ]
     })
-    return { ruleForm, rules }
+    const handleGetVerifyCode = () => {
+      console.log('get code...')
+    }
+    return { ruleForm, rules, handleGetVerifyCode }
   }
 })
 </script>
