@@ -1,25 +1,31 @@
 <template>
   <div>
-    <el-icon style="cursor: pointer" @click="switchCollapse">
-      <component :is="isCollapse ? 'DArrowRight' : 'DArrowLeft'" />
+    <el-icon
+      :size="30"
+      style="cursor: pointer; line-height: 68px"
+      @click="switchCollapse"
+    >
+      <component :is="isCollapse ? 'Expand' : 'Fold'" />
     </el-icon>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import { DArrowLeft, DArrowRight } from '@element-plus/icons'
+import { Expand, Fold } from '@element-plus/icons'
 import setting from '@/store/modules/sys'
+import { mapState } from 'pinia'
 export default defineComponent({
-  components: { DArrowLeft, DArrowRight },
+  components: { Expand, Fold },
+  computed: {
+    ...mapState(setting, ['isCollapse'])
+  },
   setup() {
     const sys = setting()
-    let isCollapse = ref(sys.isCollapse)
     const switchCollapse = () => {
-      isCollapse.value = !isCollapse.value
-      sys.changeIsCollapse(isCollapse.value)
+      sys.changeIsCollapse()
     }
-    return { isCollapse, switchCollapse }
+    return { switchCollapse }
   }
 })
 </script>

@@ -60,6 +60,7 @@ export default defineComponent({
   font-size: 18px;
   font-weight: 700;
   margin-bottom: 20px;
+  text-align: center;
 }
 .account-control {
   display: flex;

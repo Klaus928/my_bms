@@ -6,8 +6,8 @@ const setting = defineStore('sys', {
     }
   },
   actions: {
-    changeIsCollapse(value: boolean) {
-      this.isCollapse = value
+    changeIsCollapse() {
+      this.isCollapse = !this.isCollapse
     }
   }
 })

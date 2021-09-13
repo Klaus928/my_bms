@@ -65,6 +65,7 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .theme-container {
+  white-space: nowrap;
   margin-top: 20px;
   .title {
     font-weight: 700;
@@ -74,6 +75,8 @@ export default defineComponent({
 }
 .menu-container {
   .menu {
+    white-space: nowrap;
+    border: none;
     background-color: #d3dce6;
   }
 }

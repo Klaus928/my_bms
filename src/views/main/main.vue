@@ -1,6 +1,6 @@
 <template>
   <el-container class="container">
-    <el-aside :width="isCollapse ? '5%' : '15%'" class="aside">
+    <el-aside :width="isCollapse ? '60px' : '200px'" class="aside">
       <NavMenu />
     </el-aside>
     <el-container>
@@ -36,6 +36,7 @@ export default defineComponent({
   }
   .aside {
     background-color: #d3dce6;
+    transition: width 0.5s ease-in-out;
   }
   .main {
     background-color: #e9eef3;
