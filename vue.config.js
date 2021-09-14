@@ -1,7 +1,7 @@
 // const path = require('path')
 module.exports = {
   outputDir: './build',
-  publicPath: './',
+  // publicPath: './',
   // 第一种配置方式 最后会合并
   configureWebpack: {
     resolve: {

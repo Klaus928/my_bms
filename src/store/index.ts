@@ -6,6 +6,7 @@ import {
 } from '@/service/login'
 import { createPinia, defineStore } from 'pinia'
 import router from '@/router'
+import { mapMenuToRoute } from '@/utils/mapMenu'
 import localCache from '@/utils/cache'
 const store = createPinia()
 export const loginState = defineStore('login', {
@@ -37,6 +38,12 @@ export const loginState = defineStore('login', {
       const menu = await requestUserMenusByRoleId(id)
       this.userMenus = menu.data
       localCache.setCache('userMenus', menu.data)
+      // userMenus => routes
+      const routes = mapMenuToRoute(menu.data)
+      // 将routes => router.main.children
+      routes.forEach((route) => {
+        router.addRoute('main', route)
+      })
       router.push({ name: 'main' })
     },
     /**

@@ -44,6 +44,7 @@ import { defineComponent, ref } from 'vue'
 import { loginState } from '@/store'
 import setting from '@/store/modules/sys'
 import { mapState } from 'pinia'
+import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'NavMenu',
   computed: {
@@ -55,10 +56,17 @@ export default defineComponent({
     const activeIndex = ref<string>('')
     const login = loginState()
     const userMenus = login.userMenus
+    const router = useRouter()
     const handleOpen = (key, keyPath) => {
       console.log(key, keyPath)
     }
-    return { imgUrl, activeIndex, userMenus, handleOpen }
+    const handleMenuItemClick = (item: any) => {
+      console.log('--------')
+      router.push({
+        path: item.url ?? '/not-found'
+      })
+    }
+    return { imgUrl, activeIndex, userMenus, handleOpen, handleMenuItemClick }
   }
 })
 </script>

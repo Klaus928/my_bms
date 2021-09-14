@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
+import { mapMenuToRoute } from '@/utils/mapMenu'
 const basicRoute: Array<RouteRecordRaw> = [
   {
     path: '/',
