@@ -1,12 +1,9 @@
 <template>
-  <div>
-    <el-icon
-      :size="30"
-      style="cursor: pointer; line-height: 68px"
-      @click="switchCollapse"
-    >
+  <div class="header">
+    <el-icon :size="30" style="cursor: pointer" @click="switchCollapse">
       <component :is="isCollapse ? 'Expand' : 'Fold'" />
     </el-icon>
+    <UserInfo />
   </div>
 </template>
 
@@ -14,9 +11,10 @@
 import { defineComponent, ref } from 'vue'
 import { Expand, Fold } from '@element-plus/icons'
 import setting from '@/store/modules/sys'
+import UserInfo from './user-info.vue'
 import { mapState } from 'pinia'
 export default defineComponent({
-  components: { Expand, Fold },
+  components: { Expand, Fold, UserInfo },
   computed: {
     ...mapState(setting, ['isCollapse'])
   },
@@ -30,4 +28,10 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>

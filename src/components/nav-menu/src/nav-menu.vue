@@ -2,7 +2,7 @@
   <div class="theme-container">
     <!-- <img src="~@/assets/images/theme.jpg" width="90" /> -->
     <el-link>
-      <el-avatar size="50%" :src="imgUrl" alt="头像"></el-avatar>
+      <el-avatar :src="imgUrl" alt="头像"></el-avatar>
     </el-link>
     <span class="title" v-if="!isCollapse">Vue3+Ts</span>
   </div>

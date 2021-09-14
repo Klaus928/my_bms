@@ -8,12 +8,15 @@ import { createPinia, defineStore } from 'pinia'
 import router from '@/router'
 import { mapMenuToRoute } from '@/utils/mapMenu'
 import localCache from '@/utils/cache'
+import { IUserInfo } from '@/types/user'
 const store = createPinia()
 export const loginState = defineStore('login', {
-  state() {
+  state(): IUserInfo {
     return {
       count: 1,
-      userInfo: {},
+      userInfo: {
+        name: ''
+      },
       token: '',
       userMenus: []
     }
@@ -31,9 +34,9 @@ export const loginState = defineStore('login', {
       this.token = token
       localCache.setCache('token', token)
       // 请求用户信息
-      const info = await requestUserInfoById(id)
-      this.userInfo = info
-      localCache.setCache('userInfo', info)
+      const info: any = await requestUserInfoById(id)
+      this.userInfo = info.data
+      localCache.setCache('userInfo', info.data)
       // 请求用户菜单
       const menu = await requestUserMenusByRoleId(id)
       this.userMenus = menu.data

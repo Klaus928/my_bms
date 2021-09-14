@@ -7,7 +7,7 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes: basicRoute
 })
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.name != 'login') {
     if (!localCache.getCache('token')) {
       next({ name: 'login' })

@@ -7,3 +7,11 @@ export interface phoneInfo extends Object {
   phone: number | undefined
   verifyCode: number | undefined
 }
+export interface IUserInfo {
+  count: number
+  userInfo: {
+    name: string
+  }
+  token: string
+  userMenus: any[]
+}
