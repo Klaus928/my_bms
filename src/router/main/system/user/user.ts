@@ -3,5 +3,6 @@ export default {
   path: '/main/system/user',
   name: 'user',
   component: user,
-  children: []
+  children: [],
+  meta: { title: '系统管理 / 用户管理' }
 }

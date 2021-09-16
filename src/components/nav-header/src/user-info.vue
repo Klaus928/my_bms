@@ -12,7 +12,7 @@
             </el-icon>
             用户信息</el-dropdown-item
           >
-          <el-dropdown-item
+          <el-dropdown-item @click="handleLogout"
             ><el-icon>
               <switch-button />
             </el-icon>
@@ -26,15 +26,27 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { loginState } from '@/store'
-import { Avatar, Setting, SwitchButton } from '@element-plus/icons'
+import { Setting, SwitchButton } from '@element-plus/icons'
+import localCache from '@/utils/cache'
+import { ElMessageBox } from 'element-plus'
+import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'UserInfo',
   components: { Setting, SwitchButton },
   setup() {
+    const router = useRouter()
     const login = loginState()
     const userName: any = login.userInfo.name
-    console.log('userName', userName)
-    return { userName }
+    const handleLogout = () => {
+      ElMessageBox.confirm('确认退出', {
+        cancelButtonText: '取消',
+        confirmButtonText: '确认'
+      }).then(() => {
+        localCache.deleteCache('token')
+        router.push({ name: 'login' })
+      })
+    }
+    return { userName, handleLogout }
   }
 })
 </script>

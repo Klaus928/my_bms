@@ -16,7 +16,7 @@
     >
       <template v-for="item in userMenus" :key="item.id">
         <template v-if="item.type === 1">
-          <el-sub-menu :index="item.id">
+          <el-sub-menu :index="`${item.id}`">
             <template #title>
               <i :class="item.icon"></i>
               <span>{{ item.name }}</span>
@@ -40,33 +40,35 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, getCurrentInstance } from 'vue'
 import { loginState } from '@/store'
 import setting from '@/store/modules/sys'
 import { mapState } from 'pinia'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 export default defineComponent({
   name: 'NavMenu',
   computed: {
-    ...mapState(setting, ['isCollapse'])
+    ...mapState(setting, ['isCollapse', 'activeIndex'])
   },
   setup() {
     const imgUrl =
       'https://pica.zhimg.com/80/v2-d91571d2bc4f8a0f217a6790473b4aff_720w.jpg?source=1940ef5c'
-    const activeIndex = ref<string>('')
     const login = loginState()
-    const userMenus = login.userMenus
+    const settingStore = setting()
     const router = useRouter()
+    const userMenus = login.userMenus
+    const route = useRoute()
+    settingStore.changeActiveIndex(route.path)
+    // let activeIndex = ref(route.path)
     const handleOpen = (key, keyPath) => {
       console.log(key, keyPath)
     }
-    const handleMenuItemClick = (item: any) => {
-      console.log('--------')
-      router.push({
-        path: item.url ?? '/not-found'
-      })
+    return {
+      imgUrl,
+      // activeIndex,
+      userMenus,
+      handleOpen
     }
-    return { imgUrl, activeIndex, userMenus, handleOpen, handleMenuItemClick }
   }
 })
 </script>

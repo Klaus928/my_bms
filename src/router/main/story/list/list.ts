@@ -3,5 +3,8 @@ export default {
   path: '/main/story/list',
   name: 'list',
   component: list,
-  children: []
+  children: [],
+  meta: {
+    title: '随便聊聊 / 故事列表'
+  }
 }

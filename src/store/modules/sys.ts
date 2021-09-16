@@ -2,12 +2,16 @@ import { defineStore } from 'pinia'
 const setting = defineStore('sys', {
   state() {
     return {
-      isCollapse: false
+      isCollapse: false,
+      activeIndex: ''
     }
   },
   actions: {
     changeIsCollapse() {
       this.isCollapse = !this.isCollapse
+    },
+    changeActiveIndex(value) {
+      this.activeIndex = value
     }
   }
 })

@@ -3,5 +3,8 @@ export default {
   path: '/main/product/category',
   name: 'category',
   component: category,
+  meta: {
+    title: '商品中心 / 商品类别'
+  },
   children: []
 }

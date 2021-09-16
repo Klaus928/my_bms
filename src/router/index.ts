@@ -12,16 +12,17 @@ router.beforeEach(async (to: any, from, next) => {
     if (!localCache.getCache('token')) {
       next({ name: 'login' })
     } else {
+      next()
       // 解决动态路由找不到
-      if (!router.hasRoute(to.name)) {
-        const routes = mapMenuToRoute()
-        routes.forEach((route) => {
-          router.addRoute('main', route)
-        })
-        next({ ...to, replace: true })
-      } else {
-        next()
-      }
+      // if (!router.hasRoute(to.name)) {
+      //   const routes = mapMenuToRoute()
+      //   routes.forEach((route) => {
+      //     router.addRoute('main', route)
+      //   })
+      //   next({ ...to, replace: true })
+      // } else {
+      //   next()
+      // }
     }
   } else {
     // 登录过的用户不能进入登录页面

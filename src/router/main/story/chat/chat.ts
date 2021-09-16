@@ -3,5 +3,8 @@ export default {
   path: '/main/story/chat',
   name: 'chat',
   component: chat,
-  children: []
+  children: [],
+  meta: {
+    title: '随便聊聊 / 你的故事'
+  }
 }

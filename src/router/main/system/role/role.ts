@@ -3,5 +3,6 @@ export default {
   path: '/main/system/role',
   name: 'role',
   component: role,
-  children: []
+  children: [],
+  meta: { title: '系统管理 / 角色管理' }
 }

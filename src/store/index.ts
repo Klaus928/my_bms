@@ -62,6 +62,11 @@ export const loginState = defineStore('login', {
       this.token = localCache.getCache('token')
       this.userInfo = localCache.getCache('userInfo')
       this.userMenus = localCache.getCache('userMenus')
+      const routes = mapMenuToRoute(this.userMenus)
+      // 将routes => router.main.children
+      routes.forEach((route) => {
+        router.addRoute('main', route)
+      })
     }
   }
 })
