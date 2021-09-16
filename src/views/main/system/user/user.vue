@@ -1,7 +1,12 @@
 <template>
   <div class="user">
     <h2>
-      <base-form v-bind="searchConfig" :formObject="formObject" />
+      <base-form
+        v-bind="searchConfig"
+        :formObject="formObject"
+        @update="handleUpdateData"
+        @search="handleSearch"
+      />
     </h2>
   </div>
 </template>
@@ -12,7 +17,7 @@ import searchConfig from './config/search-config'
 export default defineComponent({
   name: 'user',
   setup() {
-    const formObject = ref({
+    let formObject = ref({
       id: '',
       userName: '',
       password: '',
@@ -20,14 +25,15 @@ export default defineComponent({
       createDateTime: [],
       createTime: ''
     })
-    watch(
-      formObject,
-      (newVal) => {
-        console.log('formObject', newVal)
-      },
-      { deep: true }
-    )
-    return { searchConfig, formObject }
+    // 如果想在父组件同步数据就需要添加update 事件
+    //因为eslint不允许子组件往父组件流通数据，所以只能使用emit方式
+    const handleUpdateData = (obj: any) => {
+      formObject.value = obj
+    }
+    const handleSearch = (data) => {
+      console.log('emitO', data)
+    }
+    return { searchConfig, formObject, handleUpdateData, handleSearch }
   }
 })
 </script>

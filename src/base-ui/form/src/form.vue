@@ -9,7 +9,7 @@
                 v-if="item.type === 'input' || item.type === 'password'"
               >
                 <el-input
-                  v-model="formObject[item.value]"
+                  v-model="formData[item.value]"
                   :show-password="item.type === 'password'"
                   :placeholder="
                     item?.placeholder ||
@@ -20,7 +20,7 @@
               </template>
               <template v-else-if="item.type === 'select'">
                 <el-select
-                  v-model="formObject[item.value]"
+                  v-model="formData[item.value]"
                   :placeholder="
                     item?.placeholder ||
                     item?.otherOptions?.placeholder ||
@@ -29,7 +29,7 @@
                 >
                   <template v-for="option in item.options || []" :key="option">
                     <el-option
-                      v-model="formObject[item.value]"
+                      v-model="formData[item.value]"
                       :label="option.label"
                       :value="option.value"
                     ></el-option>
@@ -38,7 +38,7 @@
               </template>
               <template v-else-if="item.type === 'datepicker'">
                 <el-date-picker
-                  v-model="formObject[item.value]"
+                  v-model="formData[item.value]"
                   :type="item?.otherOptions?.type"
                   :start-placeholder="
                     item?.otherOptions?.startPlaceholder || '开始时间'
@@ -53,6 +53,7 @@
         </template>
       </el-row>
     </el-form>
+    <el-button @click="$emit('search', formData)">查询</el-button>
   </div>
 </template>
 
@@ -98,30 +99,19 @@ export default defineComponent({
       }
     }
   },
-  setup(props, { emit }) {
-    // console.log('props', props['formObject'])
-    // let formData = ref(props['formObject'])
-    // watch(formData, (newVal) => {
-    //   console.log('newVal', newVal)
-
-    // })
-    // watch(
-    //   formData,
-    //   (newVal) => {
-    //     console.log('newVal', newVal)
-    //     emit('update:formObject', newVal)
-    //   },
-    //   { deep: true }
-    // )
-    // const formData = computed({
-    //   get: () => props['formObject'],
-    //   set: (newVal) => {
-    //     emit('update:formObject', newVal)
-    //   }
-    // })
-    return {}
+  setup(props: any, { emit }) {
+    let formData = ref({ ...props?.formObject })
+    // 监听formData 触发父组件更新数据
+    watch(
+      formData,
+      (newVal) => {
+        emit('update', newVal)
+      },
+      { deep: true }
+    )
+    return { formData }
   },
-  emits: ['update:formObject']
+  emits: ['update']
 })
 </script>
 
