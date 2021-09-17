@@ -1,6 +1,7 @@
 import { RouteRecordRaw } from 'vue-router'
 import localCache from './cache'
 export function mapMenuToRoute(userMenus?: any): RouteRecordRaw[] {
+  if (!localCache.getCache('userMenus')) return []
   if (!userMenus) {
     userMenus = localCache.getCache('userMenus')
   }
@@ -13,8 +14,6 @@ export function mapMenuToRoute(userMenus?: any): RouteRecordRaw[] {
     const route = require('../router/main' + key.split('.')[1])
     allRoutes.push(route.default)
   })
-  console.log('routeFiles', routeFiles)
-  console.log('userMenus', userMenus)
 
   // 2.根据菜单获取
   /**
@@ -27,7 +26,6 @@ export function mapMenuToRoute(userMenus?: any): RouteRecordRaw[] {
       if (menu.type === 2) {
         const route = allRoutes.find((item) => item.path === menu.url)
         if (route) {
-          // route.path = route.path.replace(/\/main/, '')
           routes.push(route)
         }
       } else {
@@ -36,6 +34,5 @@ export function mapMenuToRoute(userMenus?: any): RouteRecordRaw[] {
     }
   }
   _recurseGetRoute(userMenus)
-  console.log('routes', routes)
   return routes
 }

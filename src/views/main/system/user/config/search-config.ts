@@ -1,5 +1,7 @@
-import { IForm } from '@/base-ui/form/types'
-const options: IForm = {
+import { ISearchConfig } from '@/types/logic'
+const options: ISearchConfig = {
+  apiName: 'getUserList',
+  apiModule: 'main/system',
   formItems: [
     { label: '用户名', value: 'userName', type: 'input' },
     { label: '密码', value: 'password', type: 'input' },
@@ -23,6 +25,15 @@ const options: IForm = {
       ]
     }
   ],
-  labelWidth: '100px'
+  labelWidth: '100px',
+  formObject: {
+    id: '',
+    userName: '',
+    password: '',
+    likeSport: '',
+    createDateTime: [],
+    createTime: ''
+  }
 }
+
 export default options

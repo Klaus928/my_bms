@@ -1,10 +1,14 @@
 <template>
   <div class="base-form">
-    <el-form :label-width="labelWidth">
+    <el-form :label-width="labelWidth" :model="formData" ref="form">
       <el-row :gutter="20">
         <template v-for="item in formItems" :key="item.value">
           <el-col :span="item.col || 8" v-bind="colLayout">
-            <el-form-item :label="item.label + '：'" :style="itemStyles">
+            <el-form-item
+              :label="item.label + '：'"
+              :style="itemStyles"
+              :prop="item.value"
+            >
               <template
                 v-if="item.type === 'input' || item.type === 'password'"
               >
@@ -46,6 +50,7 @@
                   :end-placeholder="
                     item?.otherOptions?.endPlaceholder || '结束时间'
                   "
+                  range-separator="至"
                 ></el-date-picker>
               </template>
             </el-form-item>
@@ -53,12 +58,11 @@
         </template>
       </el-row>
     </el-form>
-    <el-button @click="$emit('search', formData)">查询</el-button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, ref, watch } from 'vue'
+import { defineComponent, PropType, ref, watch } from 'vue'
 import { IFormItem } from '../types'
 export default defineComponent({
   name: 'BaseForm',
@@ -73,13 +77,6 @@ export default defineComponent({
       type: String,
       default: '100px'
     },
-    formObject: {
-      type: Object,
-      required: true,
-      default() {
-        return {}
-      }
-    },
     itemStyles: {
       type: Object,
       default() {
@@ -90,16 +87,21 @@ export default defineComponent({
       type: Object,
       default() {
         return {
-          xl: 8,
-          lg: 8,
+          xl: 6,
+          lg: 6,
           md: 12,
           sm: 24,
           xs: 24
         }
       }
+    },
+    formObject: {
+      type: Object,
+      required: true
     }
   },
   setup(props: any, { emit }) {
+    const form = ref()
     let formData = ref({ ...props?.formObject })
     // 监听formData 触发父组件更新数据
     watch(
@@ -109,7 +111,11 @@ export default defineComponent({
       },
       { deep: true }
     )
-    return { formData }
+    const resetField = () => {
+      form.value?.resetFields()
+      // console.log(form.value?.resetFields())
+    }
+    return { formData, resetField, form }
   },
   emits: ['update']
 })

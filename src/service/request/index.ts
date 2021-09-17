@@ -2,7 +2,8 @@
 import axios from 'axios'
 import type { AxiosInstance } from 'axios'
 import { myRequestInterceptors, myRequestConfig } from './types'
-
+import { ElMessage } from 'element-plus'
+import localCache from '@/utils/cache'
 class myRequest {
   private instance: AxiosInstance
   private readonly options: myRequestConfig
@@ -22,21 +23,25 @@ class myRequest {
     // 拦截所有请求
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('请求总拦截成功')
+        const token = localCache.getCache('token')
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`
+          // config.headers.accessToken = `Bearer ${token}`
+          // config.headers.common['token'] = token
+        }
         return config
       },
       (err) => {
-        console.log('总失败')
+        ElMessage.error('请求失败')
       }
     )
     this.instance.interceptors.response.use(
       (res) => {
-        console.log('详情总拦截成功')
         const data = res.data
         return data
       },
       (err) => {
-        console.log(err.response.status)
+        ElMessage.error('请求失败')
         switch (err.response.status) {
           case 404:
             console.log('不存在')
