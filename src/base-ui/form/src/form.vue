@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="base-form">
     <el-form :label-width="labelWidth">
       <el-row :gutter="20">
         <template v-for="item in formItems" :key="item.value">
@@ -83,7 +83,7 @@ export default defineComponent({
     itemStyles: {
       type: Object,
       default() {
-        return { padding: '0 40px' }
+        return {}
       }
     },
     colLayout: {
@@ -115,4 +115,11 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style lang="less" scoped>
+&:deep(.el-select) {
+  width: 100%;
+}
+&:deep(.el-range-editor.el-input__inner) {
+  width: 100%;
+}
+</style>
