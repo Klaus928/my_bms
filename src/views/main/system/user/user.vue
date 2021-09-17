@@ -2,7 +2,9 @@
   <div class="user">
     <table-page :searchConfig="searchConfig" :tableConfig="tableConfig">
       <template #status="scope">
-        {{ scope.row.enable }}
+        <el-tag :type="scope.row.enable ? 'primary' : ''">
+          {{ scope.row.enable ? '启用' : '取消' }}</el-tag
+        >
       </template>
     </table-page>
   </div>

@@ -18,7 +18,16 @@
       </div>
     </slot>
     <div class="table">
-      <base-table v-bind="tableConfig" :tableData="tableData"> </base-table>
+      <base-table v-bind="tableConfig" :tableData="tableData">
+        <template
+          v-slot:[item.slotName]="scope"
+          v-for="item in getColumnSlots"
+          :key="item"
+        >
+          <slot :name="item.slotName" :row="scope.row"></slot>
+        </template>
+        >
+      </base-table>
     </div>
     <div class="pagnation">
       <!-- <el-pagination
@@ -40,6 +49,7 @@ import BaseForm from '@/base-ui/form'
 import { ISearchConfig } from '@/types/logic'
 import requestStoreList from '@/store/modules/requestStore'
 import { StoreDefinition } from 'pinia'
+import { ITableConfig } from '@/types/logic'
 export default defineComponent({
   components: { BaseForm },
   name: 'TablePage',
@@ -49,7 +59,7 @@ export default defineComponent({
       required: true
     },
     tableConfig: {
-      type: Object,
+      type: Object as PropType<ITableConfig>,
       required: true
     }
   },
@@ -89,6 +99,13 @@ export default defineComponent({
 
     handleSearch()
     return { handleUpdateData, handleSearch, resetForm, baseForm, tableData }
+  },
+  computed: {
+    getColumnSlots() {
+      console.log(this.tableConfig.headerItems.filter((item) => item.slotName))
+      const slots = this.tableConfig.headerItems.filter((item) => item.slotName)
+      return slots
+    }
   }
 })
 </script>
