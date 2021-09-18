@@ -1,3 +1,4 @@
+import { ElFormItem } from 'element-plus'
 type IFormType = 'input' | 'password' | 'select' | 'datetime' | 'datepicker'
 export interface IFormItem {
   value: string
@@ -17,9 +18,9 @@ export interface IFormItem {
 
 export interface IForm {
   // api
-  formItems: IFormItem[]
+  formItems?: IFormItem[]
   labelWidth?: string
   itemLayout?: any
   colLayout?: any
-  formObject: any
+  formObject?: any
 }

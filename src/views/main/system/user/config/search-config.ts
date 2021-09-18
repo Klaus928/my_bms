@@ -3,11 +3,11 @@ const options: ISearchConfig = {
   apiName: 'getUserList',
   apiModule: 'main/system',
   formItems: [
-    { label: '用户名', value: 'userName', type: 'input' },
-    { label: '密码', value: 'password', type: 'input' },
+    { label: '用户名', value: 'name', type: 'input' },
+    { label: '真实姓名', value: 'realname', type: 'input' },
     {
       label: '创建时间',
-      value: 'createDateTime',
+      value: 'createAt',
       type: 'datepicker',
       // col: 10,
       otherOptions: {
@@ -15,24 +15,23 @@ const options: ISearchConfig = {
       }
     },
     {
-      label: '喜欢的运动',
-      value: 'likeSport',
+      label: '用户状态',
+      value: 'status',
       type: 'select',
       options: [
-        { label: 'basketball', value: 'basketball' },
-        { label: 'football', value: 'football' },
-        { label: 'sing', value: 'sing' }
+        { label: '启用', value: '1' },
+        { label: '禁用', value: '0' }
       ]
     }
   ],
   labelWidth: '100px',
   formObject: {
-    id: '',
-    userName: '',
-    password: '',
-    likeSport: '',
-    createDateTime: [],
-    createTime: ''
+    // id: '',
+    name: ''
+    // cellphone: '',
+    // realname: '',
+    // status: '',
+    // createAt: []
   }
 }
 

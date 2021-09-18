@@ -3,8 +3,8 @@ import App from './App.vue'
 import { setupRouter } from './router'
 import { setupStore } from './store'
 import { registerGlobComp } from '@/global/registerGlobComp'
+import { registerGlobProperties } from '@/global/registerGlobProps'
 import 'element-plus/dist/index.css'
-import Request from '@/service'
 const app = createApp(App)
 
 // 安装状态
@@ -14,5 +14,5 @@ registerGlobComp(app)
 // 在状态之后安装
 setupRouter(app)
 
-app.config.globalProperties.$http = Request
+registerGlobProperties(app)
 app.mount('#app')

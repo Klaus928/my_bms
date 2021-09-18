@@ -5,5 +5,7 @@ export interface ISearchConfig extends IForm {
   apiName?: string
 }
 export interface ITableConfig extends ITable {
-  type?: string
+  title?: string
+  showIndexColumn?: boolean
+  showCheckColumn?: boolean
 }
