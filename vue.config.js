@@ -8,7 +8,21 @@ module.exports = {
       alias: {
         components: '@/components'
       }
+    },
+    module: {
+      rules: [
+        {
+          include: /node_modules/,
+          test: /\.mjs$/,
+          type: 'javascript/auto'
+        }
+      ]
     }
+    // {
+    //   include: /node_modules/,
+    //   test: /\.mjs$/,
+    //   type: 'javascript/auto'
+    // },
   },
   devServer: {
     port: 8100,

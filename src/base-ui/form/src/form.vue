@@ -1,6 +1,11 @@
 <template>
   <div class="base-form">
-    <el-form :label-width="labelWidth" :model="formData" ref="form">
+    <el-form
+      :label-width="labelWidth"
+      :model="formData"
+      ref="form"
+      :size="size"
+    >
       <el-row :gutter="20">
         <template v-for="item in formItems" :key="item.value">
           <el-col :span="item.col || 8" v-bind="colLayout">
@@ -8,6 +13,7 @@
               :label="item.label + '：'"
               :style="itemStyles"
               :prop="item.value"
+              v-if="!item.hidden"
             >
               <template
                 v-if="item.type === 'input' || item.type === 'password'"
@@ -23,7 +29,13 @@
                 ></el-input>
               </template>
               <template v-else-if="item.type === 'select'">
+                <base-select
+                  :selectConfig="selectConfig(item)"
+                  v-if="item.test"
+                  @change="handleSelectChange($event, item)"
+                ></base-select>
                 <el-select
+                  v-else
                   v-model="formData[item.value]"
                   :placeholder="
                     item?.placeholder ||
@@ -62,16 +74,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, watch } from 'vue'
+import { defineComponent, PropType, ref, watch, reactive } from 'vue'
 import { IFormItem } from '../types'
+import requestStore from '@/store/modules/requestStore'
+import BaseSelect from '@/base-ui/select'
 export default defineComponent({
   name: 'BaseForm',
   props: {
     formItems: {
       type: Array as PropType<IFormItem[]>,
-      default() {
-        return []
-      }
+      required: true
     },
     labelWidth: {
       type: String,
@@ -98,11 +110,25 @@ export default defineComponent({
     formObject: {
       type: Object,
       required: true
+    },
+    size: {
+      type: String,
+      default: 'medium '
     }
   },
+  computed: {
+    selectConfig() {
+      return (item) => {
+        return Object.assign(item.select, {
+          value: this.formObject[item.value]
+        })
+      }
+    }
+  },
+  components: { BaseSelect },
   setup(props: any, { emit }) {
     const form = ref()
-    let formData = ref({ ...props?.formObject })
+    let formData = reactive(props.formObject)
     // 监听formData 触发父组件更新数据
     watch(
       formData,
@@ -113,9 +139,12 @@ export default defineComponent({
     )
     const resetField = () => {
       form.value?.resetFields()
-      // console.log(form.value?.resetFields())
     }
-    return { formData, resetField, form }
+    // select change
+    const handleSelectChange = (value, row) => {
+      formData[row.value] = value
+    }
+    return { formData, resetField, form, handleSelectChange }
   },
   emits: ['update']
 })

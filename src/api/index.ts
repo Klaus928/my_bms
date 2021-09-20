@@ -18,21 +18,22 @@ for (const module in url) {
       if (obj == undefined) {
         obj = {}
       }
-      obj = (
+      const requestObject = (
         url[module][name]['beforeRequest'] ||
-        function (data: any) {
-          return data
+        function (url: string, data: any) {
+          return { url, data }
         }
-      )(obj)
-      let temp: myRequestConfig = {
-        url: url[module][name].url || url[module][name],
+      )(url[module][name].url || url[module][name], obj)
+      obj = requestObject.obj
+      const temp: myRequestConfig = {
+        url: requestObject.url,
         method: url[module][name].method || 'get',
         responseType: url[module][name]['responseType'] || '',
         headers: url[module][name]['headers'] || {},
         showLoading: true
       }
       // Maybe you need more params
-      temp = Object.assign({}, temp, url[module][name])
+      // temp = Object.assign({}, temp, url[module][name])
       if (
         url[module][name].queryName &&
         url[module][name].queryName.includes('data') &&

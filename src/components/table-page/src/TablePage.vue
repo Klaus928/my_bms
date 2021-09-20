@@ -1,18 +1,18 @@
 <template>
   <div>
     <div class="header">
-      <slot name="header"></slot>
+      <slot name="pageHeader"></slot>
     </div>
-    <div class="search-form" v-if="searchConfig">
+    <div class="search-form" v-if="searchConfig.formItems">
       <base-form
         v-bind="searchConfig"
         :formObject="formObject"
         @update="handleUpdateData"
-        ref="baseForm"
+        ref="baseFormRef"
       >
       </base-form>
       <slot name="footer">
-        <div class="footer">
+        <div class="footer" v-if="searchConfig.formItems">
           <el-button @click="handleSearch(1, 10)" type="primary"
             >查询</el-button
           >
@@ -27,8 +27,7 @@
         :totalCount="totalCount"
         @sizeChange="sizeChange"
         @offsetChange="offsetChange"
-        ref="pageTable"
-        v-loading="loading"
+        ref="pageTableRef"
       >
         <template #tableHeader>
           <slot name="tableHeader"></slot>
@@ -89,29 +88,31 @@ export default defineComponent({
   setup(props: any) {
     const { apiName, apiModule } = toRefs(props.searchConfig)
     let loading = ref(false)
-    const pageTable = ref()
-    const baseForm = ref()
+    const pageTableRef = ref()
+    const baseFormRef = ref()
     let tableData = ref([])
     let totalCount = ref(0)
-    let formObject = ref({
-      offset: 1,
-      size: 10,
-      ...(props.searchConfig?.formObject || {})
-    })
+    let formObject = reactive(
+      Object.assign(props.searchConfig?.formObject || {}, {
+        offset: 1,
+        size: 10
+      })
+    )
     let loadingInstance
     // 更新formObject 对象
     const handleUpdateData = (obj: any) => {
       Object.keys(obj).forEach((item) => {
         // eslint-disable-next-line no-prototype-builtins
-        if (formObject.value.hasOwnProperty(item)) {
-          if (formObject.value[item] != obj[item]) {
-            formObject.value[item] = obj[item]
+        if (formObject.hasOwnProperty(item)) {
+          if (formObject[item] != obj[item]) {
+            formObject[item] = obj[item]
           }
         }
       })
     }
     // 搜索
     const handleSearch = (offset = 1, size = 10) => {
+      console.log('formObject', formObject)
       if (apiModule.value) {
         loading.value = true
         loadingInstance = ElLoading.service(loadingOptions)
@@ -119,7 +120,7 @@ export default defineComponent({
           apiModule.value
         ]()
         // const searchInfo = JSON.parse(JSON.stringify(formObject.value))
-        request[apiName.value]({ ...formObject.value, offset, size }).then(
+        request[apiName.value]({ ...formObject, offset, size }).then(
           (res) => {
             loadingInstance.close()
             // loading.value = false
@@ -135,17 +136,17 @@ export default defineComponent({
     }
     // 重置搜索表单
     const resetForm = () => {
-      baseForm.value?.resetField()
+      baseFormRef.value?.resetField()
       handleSearch()
     }
     //分页条数变化
     const sizeChange = (size) => {
-      const index = pageTable.value.currentPage
+      const index = pageTableRef.value.currentPage
       handleSearch(index, size)
     }
     // 分页页码变化
     const offsetChange = (offset) => {
-      const size = pageTable.value.pageSize
+      const size = pageTableRef.value.pageSize
       handleSearch(offset, size)
     }
     // 初始化
@@ -153,11 +154,11 @@ export default defineComponent({
       handleSearch()
     })
     return {
-      baseForm,
+      baseFormRef,
       tableData,
       formObject,
       totalCount,
-      pageTable,
+      pageTableRef,
       handleUpdateData,
       handleSearch,
       resetForm,
@@ -167,7 +168,6 @@ export default defineComponent({
   },
   computed: {
     getColumnSlots() {
-      console.log(this.tableConfig.headerItems.filter((item) => item.slotName))
       const slots = this.tableConfig.headerItems.filter((item) => item.slotName)
       return slots
     }
