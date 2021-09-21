@@ -3,7 +3,7 @@
     <table-page
       :searchConfig="searchConfig"
       :tableConfig="tableConfig"
-      ref="tablePage"
+      ref="tablePageRef"
     >
       <template #status="scope">
         <el-tag :type="scope.row.enable ? 'primary' : ''" size="mini">
@@ -22,18 +22,14 @@
         </el-button>
       </template>
       <template #tableHeader>
-        <el-button type="primary" @click="hanldeAdd">新建用户</el-button>
+        <el-button type="primary" @click="handleAdd">新建用户</el-button>
       </template>
     </table-page>
     <page-modal
-      ref="baseDialog"
-      v-bind="dialogConfig"
+      ref="pageModalRef"
       :dialogConfig="dialogConfig"
       @submit="handleSubmit"
     >
-      <template #content>
-        <base-form v-bind="formConfig"></base-form>
-      </template>
     </page-modal>
   </div>
 </template>
@@ -42,72 +38,71 @@
 import { defineComponent, ref, reactive } from 'vue'
 import searchConfig from './config/search-config'
 import tableConfig from './config/table-config'
-import { Delete, Edit } from '@element-plus/icons'
+import dialogConfig from './config/model.config'
+import formConfig from './config/model.config'
 import requestStoreList from '@/store/modules/requestStore'
+import { Delete, Edit } from '@element-plus/icons'
 import { message, msgBox } from '@/utils/messagebox'
 import TablePage from '@/components/table-page'
-import formConfig from './config/model.config'
 import PageModal from '@/components/page-modal'
+import { usePageModal } from '@/hooks/use-page-modal'
 export default defineComponent({
   name: 'user',
   components: { Delete, Edit },
   setup() {
-    const dialogConfig = reactive({
-      title: '新增用户',
-      visible: false
-    })
-    const baseDialog = ref<InstanceType<typeof PageModal>>()
-    const dialogOption = ref({
-      visible: true,
-      title: '新建用户'
-    })
-    const tablePage = ref<InstanceType<typeof TablePage>>()
-    const sysStore = requestStoreList['main/system']()
+    const tablePageRef = ref<InstanceType<typeof TablePage>>()
+    const sysStore = requestStoreList['main/system/user']()
     const handleDelete = async (row) => {
       msgBox(`确认删除用户： ${row.realname}?`)
-        .then(() => {
-          sysStore.deleteUser(row.id)
+        .then(async () => {
+          await sysStore.deleteUser(row.id)
           message.success('删除成功！')
-          tablePage.value?.handleSearch()
+          tablePageRef.value?.handleSearch()
         })
         .catch((err) => err)
     }
-    const hanldeAdd = () => {
-      Object.keys(formConfig.formObject).forEach((key) => {
-        formConfig.formObject[key] = ''
+    const addCallback = () => {
+      dialogConfig.apiName = 'addUser'
+      Object.keys(dialogConfig.formObject).forEach((key) => {
+        dialogConfig.formObject[key] = ''
       })
-      formConfig.formItems?.forEach((item) => {
+      dialogConfig.formItems?.forEach((item) => {
         if (item.value === 'password') {
           item.hidden = false
         }
         return item
       })
-      dialogConfig.visible = true
-      dialogConfig.title = '新增用户'
+      // dialogConfig.visible = true
+      // dialogConfig.title = '新增用户'
     }
-    const handleEdit = (item) => {
-      formConfig.formObject = item
-      formConfig.formItems?.forEach((item) => {
+    const editCallback = (item) => {
+      dialogConfig.apiName = 'editUser'
+      dialogConfig.formObject = item
+      dialogConfig.formItems?.forEach((item) => {
         if (item.value === 'password') {
           item.hidden = true
         }
         return item
       })
-      dialogConfig.visible = true
-      dialogConfig.title = '编辑用户'
+      // dialogConfig.visible = true
+      // dialogConfig.title = '编辑用户'
     }
     const handleSubmit = () => {
       console.log('formConfig', formConfig)
     }
+    const [pageModalRef, handleAdd, handleEdit] = usePageModal(
+      addCallback,
+      editCallback,
+      '用户'
+    )
     return {
-      tablePage,
+      tablePageRef,
+      pageModalRef,
       searchConfig,
-      dialogOption,
       tableConfig,
       formConfig,
       dialogConfig,
-      baseDialog,
-      hanldeAdd,
+      handleAdd,
       handleEdit,
       handleDelete,
       handleSubmit

@@ -15,3 +15,8 @@ export interface IFormConfig extends IForm {
   apiModule?: string
   apiName?: string
 }
+// dialog
+export interface IDialogConfig extends IForm {
+  apiModule?: string
+  apiName?: string
+}

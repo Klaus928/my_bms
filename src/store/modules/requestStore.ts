@@ -27,6 +27,12 @@ for (const module in url) {
     }
   }
   requestStoreList[module] = defineStore(module, {
+    state() {
+      return {
+        departmentList: [],
+        roleList: []
+      }
+    },
     actions
   })
 }

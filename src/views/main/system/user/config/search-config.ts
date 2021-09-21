@@ -1,7 +1,7 @@
 import { ISearchConfig } from '@/types/logic'
 const options: ISearchConfig = {
   apiName: 'getUserList',
-  apiModule: 'main/system',
+  apiModule: 'main/system/user',
   formItems: [
     { label: '用户名', value: 'name', type: 'input', hidden: false },
     { label: '真实姓名', value: 'realname', type: 'input', hidden: false },

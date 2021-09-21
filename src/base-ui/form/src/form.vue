@@ -14,6 +14,7 @@
               :style="itemStyles"
               :prop="item.value"
               v-if="!item.hidden"
+              :rules="item.rules"
             >
               <template
                 v-if="item.type === 'input' || item.type === 'password'"
@@ -76,8 +77,8 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, watch, reactive } from 'vue'
 import { IFormItem } from '../types'
-import requestStore from '@/store/modules/requestStore'
 import BaseSelect from '@/base-ui/select'
+import { ElForm } from 'element-plus'
 export default defineComponent({
   name: 'BaseForm',
   props: {
@@ -127,7 +128,7 @@ export default defineComponent({
   },
   components: { BaseSelect },
   setup(props: any, { emit }) {
-    const form = ref()
+    const form = ref<InstanceType<typeof ElForm>>()
     let formData = reactive(props.formObject)
     // 监听formData 触发父组件更新数据
     watch(
@@ -140,11 +141,22 @@ export default defineComponent({
     const resetField = () => {
       form.value?.resetFields()
     }
+    const validate = () => {
+      return new Promise((resolve, reject) => {
+        form.value?.validate((valid) => {
+          if (valid) {
+            resolve(true)
+          } else {
+            reject(false)
+          }
+        })
+      })
+    }
     // select change
     const handleSelectChange = (value, row) => {
       formData[row.value] = value
     }
-    return { formData, resetField, form, handleSelectChange }
+    return { formData, resetField, form, handleSelectChange, validate }
   },
   emits: ['update']
 })

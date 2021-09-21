@@ -24,7 +24,7 @@ for (const module in url) {
           return { url, data }
         }
       )(url[module][name].url || url[module][name], obj)
-      obj = requestObject.obj
+      obj = requestObject.data
       const temp: myRequestConfig = {
         url: requestObject.url,
         method: url[module][name].method || 'get',

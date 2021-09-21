@@ -13,9 +13,7 @@
       </base-form>
       <slot name="footer">
         <div class="footer" v-if="searchConfig.formItems">
-          <el-button @click="handleSearch(1, 10)" type="primary"
-            >查询</el-button
-          >
+          <el-button @click="handleSearch" type="primary">查询</el-button>
           <el-button @click="resetForm">重置</el-button>
         </div>
       </slot>
@@ -66,7 +64,7 @@ import requestStoreList from '@/store/modules/requestStore'
 import { StoreDefinition } from 'pinia'
 import { ITableConfig } from '@/types/logic'
 import { ElLoading } from 'element-plus'
-
+import BaseTable from '@/base-ui/table'
 const loadingOptions = {
   target: '.main-table',
   lock: true,
@@ -88,7 +86,7 @@ export default defineComponent({
   setup(props: any) {
     const { apiName, apiModule } = toRefs(props.searchConfig)
     let loading = ref(false)
-    const pageTableRef = ref()
+    const pageTableRef = ref<InstanceType<typeof BaseTable>>()
     const baseFormRef = ref()
     let tableData = ref([])
     let totalCount = ref(0)
@@ -112,6 +110,9 @@ export default defineComponent({
     }
     // 搜索
     const handleSearch = (offset = 1, size = 10) => {
+      size = pageTableRef.value?.pageSize || 10
+
+      offset = ((pageTableRef.value?.currentPage || 1) - 1) * size
       console.log('formObject', formObject)
       if (apiModule.value) {
         loading.value = true
@@ -141,13 +142,15 @@ export default defineComponent({
     }
     //分页条数变化
     const sizeChange = (size) => {
-      const index = pageTableRef.value.currentPage
-      handleSearch(index, size)
+      // const index = pageTableRef.value?.currentPage
+      // handleSearch(index, size)
+      handleSearch()
     }
     // 分页页码变化
     const offsetChange = (offset) => {
-      const size = pageTableRef.value.pageSize
-      handleSearch(offset, size)
+      // const size = pageTableRef.value?.pageSize
+      // handleSearch(offset, size)
+      handleSearch()
     }
     // 初始化
     onMounted(() => {

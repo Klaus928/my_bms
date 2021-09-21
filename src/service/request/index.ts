@@ -38,6 +38,16 @@ class myRequest {
     this.instance.interceptors.response.use(
       (res) => {
         const data = res.data
+        const codes = [400, -1003]
+        if (codes.findIndex((item) => item === data.code) != -1) {
+          ElMessage.error(data.data)
+        }
+        // switch (data.code) {
+        //   case -1003:
+        //     ElMessage.error(data.data)
+        //     break;
+        //     case
+        // }
         return data
       },
       (err) => {
@@ -54,14 +64,9 @@ class myRequest {
     return new Promise((resolve, reject) => {
       // 单个请求对request的拦截
       // 判断是否显示loading
-      this.instance
-        .request<any, T>(options)
-        .then((res) => {
-          resolve(res)
-        })
-        .catch((err) => {
-          reject(err)
-        })
+      this.instance.request<any, T>(options).then((res) => {
+        resolve(res)
+      })
     })
   }
   get<T>(options: myRequestConfig): Promise<T> {

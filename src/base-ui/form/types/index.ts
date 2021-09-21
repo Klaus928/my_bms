@@ -1,4 +1,4 @@
-import { ElFormItem } from 'element-plus'
+import type { UseFormItemProps } from 'element-plus'
 import { ISelect } from '@/base-ui/select'
 type IFormType = 'input' | 'password' | 'select' | 'datetime' | 'datepicker'
 export interface IFormItem {

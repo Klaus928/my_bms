@@ -1,22 +1,40 @@
-import { IFormConfig } from '@/types/logic'
-export const modalConfig: IFormConfig = {
+import { IDialogConfig } from '@/types/logic'
+export const modalConfig: IDialogConfig = {
+  apiModule: 'main/system/user',
+  apiName: '',
   size: 'small',
   formItems: [
-    { label: '用户名', value: 'name', col: 24, type: 'input', hidden: false },
+    {
+      label: '用户名',
+      value: 'name',
+      col: 24,
+      type: 'input',
+      hidden: false,
+      rules: [{ required: true, message: '必填项', trigger: 'blur' }]
+    },
     {
       label: '真实姓名',
       value: 'realname',
       col: 24,
       type: 'input',
-      hidden: false
+      hidden: false,
+      rules: [{ required: true, message: '必填项', trigger: 'blur' }]
     },
-    { label: '密码', value: 'password', col: 24, type: 'input', hidden: true },
+    {
+      label: '密码',
+      value: 'password',
+      col: 24,
+      type: 'input',
+      hidden: true,
+      rules: [{ required: true, message: '必填项', trigger: 'blur' }]
+    },
     {
       label: '电话号码',
       value: 'cellphone',
       col: 24,
       type: 'input',
-      hidden: false
+      hidden: false,
+      rules: [{ required: true, message: '必填项', trigger: 'blur' }]
     },
     {
       label: '角色',
@@ -25,7 +43,7 @@ export const modalConfig: IFormConfig = {
       type: 'select',
       hidden: false,
       select: {
-        apiModule: 'main/system',
+        apiModule: 'main/system/user',
         apiName: 'getRoleList',
         value: '',
         defaultProps: {
@@ -34,7 +52,10 @@ export const modalConfig: IFormConfig = {
         },
         options: [{ label: 'heelo', value: 'sss' }]
       },
-      test: true
+      test: true,
+      rules: [
+        { required: true, message: '必选项', trigger: ['blur', 'change'] }
+      ]
     },
     {
       label: '部门',
@@ -43,7 +64,7 @@ export const modalConfig: IFormConfig = {
       type: 'select',
       hidden: false,
       select: {
-        apiModule: 'main/system',
+        apiModule: 'main/system/user',
         apiName: 'getDeptList',
         value: '',
         defaultProps: {
@@ -52,7 +73,10 @@ export const modalConfig: IFormConfig = {
         },
         options: [{ label: 'heelo', value: 'sss' }]
       },
-      test: true
+      test: true,
+      rules: [
+        { required: true, message: '必选项', trigger: ['blur', 'change'] }
+      ]
     }
   ],
   colLayout: {

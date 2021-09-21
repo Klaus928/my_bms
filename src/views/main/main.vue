@@ -11,13 +11,11 @@
           :selectConfig="selectConfig"
           @change="handleChange"
         ></base-select> -->
-        <transition>
-          <router-view v-slot="{ Component }">
-            <keep-alive>
-              <component :is="Component" />
-            </keep-alive>
-          </router-view>
-        </transition>
+        <router-view v-slot="{ Component }">
+          <transition>
+            <component :is="Component" />
+          </transition>
+        </router-view>
       </el-main>
     </el-container>
   </el-container>
@@ -37,7 +35,7 @@ export default defineComponent({
   },
   setup() {
     const selectConfig = {
-      apiModule: 'main/system',
+      apiModule: 'main/system/user',
       apiName: 'getUserList',
       value: '',
       defaultProps: {

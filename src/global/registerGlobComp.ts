@@ -10,7 +10,11 @@ import PageModal from '@/components/page-modal'
 const components = [BaseForm, TablePage, BaseTable, BaseDialog, PageModal]
 export function registerGlobComp(app: App): void {
   components.forEach((component) => {
-    app.component(component.name, component)
+    // app.component(component.name, component)
+    app.component(
+      component.name,
+      Object.assign(component, { inheritAttrs: false })
+    )
   })
   const ElementPlus = require('element-plus')
   app.use(ElementPlus, { locale })

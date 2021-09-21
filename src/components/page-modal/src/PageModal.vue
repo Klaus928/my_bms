@@ -5,7 +5,9 @@
       v-model="dialogOption.visible"
       destroy-on-close
     >
-      <slot name="content"></slot>
+      <slot name="content">
+        <base-form v-bind="dialogConfig" ref="baseFormRef"></base-form>
+      </slot>
       <slot name="footer">
         <div class="btn">
           <el-button size="small" @click="handleClose">取消</el-button>
@@ -19,14 +21,14 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType, ref, reactive } from 'vue'
-import { IDialogConfig } from '../types'
+import { IDialogConfig } from '@/types/logic'
+import requestStore from '@/store/modules/requestStore'
+import { message } from '@/utils/messagebox'
+import _ from 'lodash'
+import BaseForm from '@/base-ui/form'
 export default defineComponent({
   name: 'PageModal',
   props: {
-    dialogVisible: {
-      type: Boolean,
-      default: false
-    },
     dialogConfig: {
       type: Object as PropType<IDialogConfig>,
       required: true
@@ -34,14 +36,35 @@ export default defineComponent({
   },
   emits: ['submit'],
   setup(props, { emit }) {
-    const dialogOption = reactive<IDialogConfig>(props.dialogConfig)
+    const baseFormRef = ref<InstanceType<typeof BaseForm>>()
+    let dialogOption = reactive({
+      title: '新建用户',
+      visible: false
+    })
     const handleClose = () => {
       dialogOption.visible = false
     }
-    const handleSubmit = () => {
-      emit('submit')
+    const handleSubmit = async () => {
+      const valid = await baseFormRef.value?.validate()
+      if (valid) {
+        const apiModule = props.dialogConfig.apiModule
+        const apiName = props.dialogConfig.apiName
+        const formObject = _.cloneDeep(props.dialogConfig.formObject)
+        if (apiModule && apiName) {
+          const store = requestStore[apiModule]()
+          // 编辑
+          store[apiName](formObject)
+            .then((res) => {
+              message(`${dialogOption.title}成功`)
+            })
+            .catch(() => {
+              message(`${dialogOption.title}失败`)
+            })
+        }
+        emit('submit')
+      }
     }
-    return { dialogOption, handleClose, handleSubmit }
+    return { baseFormRef, dialogOption, handleClose, handleSubmit }
   }
 })
 </script>
