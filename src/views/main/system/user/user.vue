@@ -35,16 +35,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive } from 'vue'
+import { defineComponent, ref } from 'vue'
 import searchConfig from './config/search-config'
 import tableConfig from './config/table-config'
 import dialogConfig from './config/model.config'
-import formConfig from './config/model.config'
 import requestStoreList from '@/store/modules/requestStore'
 import { Delete, Edit } from '@element-plus/icons'
 import { message, msgBox } from '@/utils/messagebox'
 import TablePage from '@/components/table-page'
-import PageModal from '@/components/page-modal'
 import { usePageModal } from '@/hooks/use-page-modal'
 export default defineComponent({
   name: 'user',
@@ -87,9 +85,6 @@ export default defineComponent({
       // dialogConfig.visible = true
       // dialogConfig.title = '编辑用户'
     }
-    const handleSubmit = () => {
-      console.log('formConfig', formConfig)
-    }
     const [pageModalRef, handleAdd, handleEdit] = usePageModal(
       addCallback,
       editCallback,
@@ -100,12 +95,10 @@ export default defineComponent({
       pageModalRef,
       searchConfig,
       tableConfig,
-      formConfig,
       dialogConfig,
       handleAdd,
       handleEdit,
-      handleDelete,
-      handleSubmit
+      handleDelete
     }
   }
 })

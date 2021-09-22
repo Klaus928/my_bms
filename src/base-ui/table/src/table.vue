@@ -60,6 +60,7 @@
 import { defineComponent, ref, PropType } from 'vue'
 import { headerItems } from '../types'
 import dayjs from 'dayjs'
+import { formatUTCDate } from '@/utils/date-format'
 export default defineComponent({
   name: 'BaseTable',
   props: {
@@ -85,16 +86,6 @@ export default defineComponent({
       type: String,
       default: ''
     },
-    // paginaObject: {
-    //   type: Object,
-    //   default() {
-    //     return {
-    //       offset: 1,
-    //       size: 10,
-    //       total: 0
-    //     }
-    //   }
-    // },
     totalCount: {
       type: Number,
       default: 0
@@ -104,9 +95,10 @@ export default defineComponent({
   computed: {
     getDate() {
       return function (value, dataFormat) {
-        const format =
-          typeof dataFormat === 'string' ? dataFormat : 'YYYY-MM-DD HH:mm:ss'
-        return dayjs(value).format(format)
+        // const format =
+        //   typeof dataFormat === 'string' ? dataFormat : 'YYYY-MM-DD HH:mm:ss'
+        // return dayjs(value).format(format)
+        return formatUTCDate(value)
       }
     }
   },
