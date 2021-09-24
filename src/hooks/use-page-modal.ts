@@ -2,9 +2,9 @@ import PageModal from '@/components/page-modal'
 import { ref } from 'vue'
 type callback = (item?: any) => void
 export function usePageModal(
+  title?: string,
   newCb?: callback,
-  editCb?: callback,
-  title?: string
+  editCb?: callback
 ) {
   const pageModalRef = ref<InstanceType<typeof PageModal>>()
   const handleAdd = () => {

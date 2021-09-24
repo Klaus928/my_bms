@@ -25,30 +25,27 @@
         <el-button type="primary" @click="handleAdd">新建用户</el-button>
       </template>
     </table-page>
-    <page-modal
-      ref="pageModalRef"
-      :dialogConfig="dialogConfig"
-      @submit="handleSubmit"
-    >
-    </page-modal>
+    <page-modal ref="pageModalRef" :dialogConfig="dialogConfig"> </page-modal>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
+/*引入config*/
 import searchConfig from './config/search-config'
 import tableConfig from './config/table-config'
 import dialogConfig from './config/model.config'
 import requestStoreList from '@/store/modules/requestStore'
 import { Delete, Edit } from '@element-plus/icons'
 import { message, msgBox } from '@/utils/messagebox'
-import TablePage from '@/components/table-page'
+/*引入hooks*/
 import { usePageModal } from '@/hooks/use-page-modal'
+import { useTablePage } from '@/hooks/use-table-page'
 export default defineComponent({
   name: 'user',
   components: { Delete, Edit },
   setup() {
-    const tablePageRef = ref<InstanceType<typeof TablePage>>()
+    const [tablePageRef] = useTablePage()
     const sysStore = requestStoreList['main/system/user']()
     const handleDelete = async (row) => {
       msgBox(`确认删除用户： ${row.realname}?`)
@@ -86,9 +83,9 @@ export default defineComponent({
       // dialogConfig.title = '编辑用户'
     }
     const [pageModalRef, handleAdd, handleEdit] = usePageModal(
+      '用户',
       addCallback,
-      editCallback,
-      '用户'
+      editCallback
     )
     return {
       tablePageRef,
