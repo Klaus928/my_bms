@@ -6,11 +6,6 @@
     <el-container>
       <el-header height="60px" class="header"><NavHeader /></el-header>
       <el-main class="main">
-        <!-- 测试区域 -->
-        <!-- <base-select
-          :selectConfig="selectConfig"
-          @change="handleChange"
-        ></base-select> -->
         <router-view v-slot="{ Component }">
           <transition>
             <component :is="Component" />

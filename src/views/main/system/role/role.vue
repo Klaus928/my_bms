@@ -20,12 +20,24 @@
         <el-button type="primary" @click="handleAdd">新建角色</el-button>
       </template>
     </table-page>
-    <page-modal ref="pageModalRef" :dialogConfig="dialogConfig"> </page-modal>
+    <page-modal ref="pageModalRef" :dialogConfig="dialogConfig">
+      <template #bottomContent>
+        <el-tree
+          ref="tree"
+          :data="menuData"
+          show-checkbox
+          default-expand-all
+          node-key="id"
+          highlight-current
+          :props="{ children: 'children', label: 'name' }"
+        />
+      </template>
+    </page-modal>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, provide, reactive } from 'vue'
 import tableConfig from './config/table-config'
 import searchConfig from './config/search-config'
 import dialogConfig from './config/modal.config'
@@ -33,28 +45,43 @@ import dialogConfig from './config/modal.config'
 import { usePageModal } from '@/hooks/use-page-modal'
 import { useTablePage } from '@/hooks/use-table-page'
 import { Delete, Edit } from '@element-plus/icons'
+import requestStore from '@/store/modules/requestStore'
 export default defineComponent({
   name: 'role',
   components: { Delete, Edit },
   setup() {
-    const [tablePageRef] = useTablePage()
+    const store = requestStore['main/system/role']()
+    const [tablePageRef, refreshTableData] = useTablePage()
+    provide('refreshTableData', refreshTableData)
+    const defaultProps = {
+      children: 'children',
+      label: 'label'
+    }
+    let menuData = reactive([])
+    const getMenuList = () => {
+      store.getMenuList().then((res) => {
+        menuData = res ?? []
+      })
+    }
+    getMenuList()
     const addCallback = () => {
       dialogConfig.apiName = 'addRole'
       Object.keys(dialogConfig.formObject).forEach((key) => {
         dialogConfig.formObject[key] = ''
       })
     }
+    // 回显其他数据
     const editCallback = (item) => {
       dialogConfig.apiName = 'editRole'
-      dialogConfig.formObject = item
+      Object.keys(dialogConfig.formObject).forEach((key) => {
+        dialogConfig.formObject[key] = item[key]
+      })
       dialogConfig.formItems?.forEach((item) => {
         if (item.value === 'password') {
           item.hidden = true
         }
         return item
       })
-      // dialogConfig.visible = true
-      // dialogConfig.title = '编辑用户'
     }
     const [pageModalRef, handleAdd, handleEdit] = usePageModal(
       '角色',
@@ -62,6 +89,8 @@ export default defineComponent({
       editCallback
     )
     return {
+      defaultProps,
+      menuData,
       tableConfig,
       searchConfig,
       dialogConfig,

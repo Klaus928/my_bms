@@ -45,14 +45,14 @@ export default defineComponent({
   name: 'user',
   components: { Delete, Edit },
   setup() {
-    const [tablePageRef] = useTablePage()
+    const [tablePageRef, refreshTableData] = useTablePage()
     const sysStore = requestStoreList['main/system/user']()
     const handleDelete = async (row) => {
       msgBox(`确认删除用户： ${row.realname}?`)
         .then(async () => {
           await sysStore.deleteUser(row.id)
           message.success('删除成功！')
-          tablePageRef.value?.handleSearch()
+          // refreshTableData()
         })
         .catch((err) => err)
     }
@@ -72,7 +72,7 @@ export default defineComponent({
     }
     const editCallback = (item) => {
       dialogConfig.apiName = 'editUser'
-      dialogConfig.formObject = item
+      dialogConfig.formObject = JSON.parse(JSON.stringify(item))
       dialogConfig.formItems?.forEach((item) => {
         if (item.value === 'password') {
           item.hidden = true

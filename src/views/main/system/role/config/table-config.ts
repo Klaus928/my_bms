@@ -5,7 +5,7 @@ const options: ITableConfig = {
   showCheckColumn: true,
   headerItems: [
     { prop: 'name', label: '角色名' },
-    { prop: 'intro', label: '描述' },
+    { prop: 'intro', label: '角色介绍' },
     { prop: 'createAt', label: '创建时间', dateFormat: true },
     { prop: 'updateAt', label: '更新时间', dateFormat: true },
     { prop: 'id', label: '操作', slotName: 'handler', minWidth: 120 }

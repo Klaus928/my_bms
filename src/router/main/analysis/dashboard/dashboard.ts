@@ -4,7 +4,7 @@ export default {
   name: 'dashboard',
   component: dashboard,
   meta: {
-    title: '系统总览 / 工作台'
+    title: '系统总览 / 商品统计'
   },
   children: []
 }

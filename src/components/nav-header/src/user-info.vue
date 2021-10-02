@@ -2,7 +2,12 @@
   <div class="userinfo-container">
     <el-dropdown trigger="click" placement="bottom-end">
       <span class="el-dropdown-link">
-        {{ userName }}<i class="el-icon-arrow-down el-icon--right"></i>
+        <el-avatar
+          size="mini"
+          class="avatar"
+          src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        ></el-avatar>
+        {{ userName }}
       </span>
       <template #dropdown>
         <el-dropdown-menu>
@@ -11,6 +16,12 @@
               <setting />
             </el-icon>
             用户信息</el-dropdown-item
+          >
+          <el-dropdown-item
+            ><el-icon>
+              <info-filled />
+            </el-icon>
+            修改密码</el-dropdown-item
           >
           <el-dropdown-item @click="handleLogout"
             ><el-icon>
@@ -26,13 +37,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { loginState } from '@/store'
-import { Setting, SwitchButton } from '@element-plus/icons'
+import { Setting, SwitchButton, InfoFilled } from '@element-plus/icons'
 import localCache from '@/utils/cache'
 import { ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'UserInfo',
-  components: { Setting, SwitchButton },
+  components: { Setting, SwitchButton, InfoFilled },
   setup() {
     const router = useRouter()
     const login = loginState()
@@ -57,6 +68,15 @@ export default defineComponent({
     font-size: 18px;
     font-weight: 700;
     line-height: 60px;
+  }
+  .avatar {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+  }
+  .el-dropdown-link {
+    display: flex;
+    align-items: center;
   }
 }
 </style>

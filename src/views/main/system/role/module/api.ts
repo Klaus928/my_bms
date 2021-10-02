@@ -15,13 +15,14 @@ const apiItems: IApi = {
     url: '/department/list'
   },
   addRole: {
-    url: '/users',
+    url: '/role',
     method: 'POST'
   },
   editRole: {
-    url: '/users/',
+    url: '/role/',
     method: 'PATCH',
     beforeRequest: (url, data) => {
+      debugger
       if (data && data.id) {
         // 编辑
         url = url + data.id
@@ -33,6 +34,10 @@ const apiItems: IApi = {
 
       return { url, data }
     }
+  },
+  getMenuList: {
+    url: '/menu/list',
+    method: 'GET'
   }
 }
 export default apiItems

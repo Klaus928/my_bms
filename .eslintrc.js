@@ -21,7 +21,8 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    'vue/valid-v-slot': 'off'
+    'vue/valid-v-slot': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off'
     // ' vue/no-mutating-props': ['error', { propProps: false }]
     // 'prettier/prettier': 'error'
   }

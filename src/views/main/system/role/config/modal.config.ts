@@ -1,7 +1,7 @@
 import { IDialogConfig } from '@/types/logic'
 export const modalConfig: IDialogConfig = {
-  apiModule: 'main/system/user',
-  apiName: '',
+  apiModule: 'main/system/role',
+  apiName: 'addRole',
   size: 'small',
   formItems: [
     {
@@ -29,8 +29,10 @@ export const modalConfig: IDialogConfig = {
     xs: 24
   },
   formObject: {
+    id: '',
     name: '',
-    intro: ''
+    intro: '',
+    menuList: []
   }
 }
 export default modalConfig

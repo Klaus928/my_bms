@@ -8,6 +8,7 @@
       <slot name="content">
         <base-form v-bind="dialogConfig" ref="baseFormRef"></base-form>
       </slot>
+      <slot name="bottomContent"></slot>
       <slot name="footer">
         <div class="btn">
           <el-button size="small" @click="handleClose">取消</el-button>
@@ -20,7 +21,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, ref, reactive } from 'vue'
+import { defineComponent, PropType, ref, reactive, inject } from 'vue'
 import { IDialogConfig } from '@/types/logic'
 import requestStore from '@/store/modules/requestStore'
 import { message } from '@/utils/messagebox'
@@ -32,10 +33,15 @@ export default defineComponent({
     dialogConfig: {
       type: Object as PropType<IDialogConfig>,
       required: true
+    },
+    otherInfo: {
+      type: Object,
+      default: () => ({})
     }
   },
   emits: ['submit'],
   setup(props, { emit }) {
+    const refreshTableData = inject<any>('refreshTableData')
     const baseFormRef = ref<InstanceType<typeof BaseForm>>()
     let dialogOption = reactive({
       title: '新建用户',
@@ -54,16 +60,22 @@ export default defineComponent({
           const store = requestStore[apiModule]()
           // 编辑
           store[apiName](formObject)
-            .then((res) => {
-              message(`${dialogOption.title}成功`)
+            .then(() => {
+              message.success(`${dialogOption.title}成功`)
+              dialogOption.visible = false
+              if (refreshTableData instanceof Function) {
+                refreshTableData()
+              }
             })
             .catch(() => {
-              message(`${dialogOption.title}失败`)
+              message.error(`${dialogOption.title}失败`)
+              dialogOption.visible = false
             })
         }
         emit('submit')
       }
     }
+
     return { baseFormRef, dialogOption, handleClose, handleSubmit }
   }
 })
