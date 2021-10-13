@@ -5547,6 +5547,17 @@
     "is-plain-obj" "^3.0.0"
     "micromatch" "^4.0.2"
 
+"http-proxy-middleware@^2.0.1":
+  "integrity" "sha1-fvNBekeft2ZqVx4Jlmxmo5vSwV8="
+  "resolved" "https://registry.nlark.com/http-proxy-middleware/download/http-proxy-middleware-2.0.1.tgz"
+  "version" "2.0.1"
+  dependencies:
+    "@types/http-proxy" "^1.17.5"
+    "http-proxy" "^1.18.1"
+    "is-glob" "^4.0.1"
+    "is-plain-obj" "^3.0.0"
+    "micromatch" "^4.0.2"
+
 "http-proxy-middleware@0.19.1":
   "integrity" "sha1-GDx9xKoUeRUDBkmMIQza+WCApDo="
   "resolved" "https://registry.nlark.com/http-proxy-middleware/download/http-proxy-middleware-0.19.1.tgz"
@@ -6047,7 +6058,7 @@
 
 "is-plain-obj@^3.0.0":
   "integrity" "sha1-r28uoUrFpkYYOlu9tbqrvBVq2dc="
-  "resolved" "https://registry.npm.taobao.org/is-plain-obj/download/is-plain-obj-3.0.0.tgz"
+  "resolved" "https://registry.npm.taobao.org/is-plain-obj/download/is-plain-obj-3.0.0.tgz?cache=0&sync_timestamp=1618600489644&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fis-plain-obj%2Fdownload%2Fis-plain-obj-3.0.0.tgz"
   "version" "3.0.0"
 
 "is-plain-object@^2.0.3", "is-plain-object@^2.0.4":
@@ -6749,7 +6760,7 @@
 
 "micromatch@^4.0.2":
   "integrity" "sha1-iW1Rnf6dsl/OlM63pQCRm/iB6/k="
-  "resolved" "https://registry.nlark.com/micromatch/download/micromatch-4.0.4.tgz"
+  "resolved" "https://registry.npm.taobao.org/micromatch/download/micromatch-4.0.4.tgz?cache=0&sync_timestamp=1618054740956&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmicromatch%2Fdownload%2Fmicromatch-4.0.4.tgz"
   "version" "4.0.4"
   dependencies:
     "braces" "^3.0.1"
