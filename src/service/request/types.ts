@@ -7,4 +7,5 @@ export interface myRequestInterceptors {
 }
 export interface myRequestConfig extends AxiosRequestConfig {
   interceptors?: myRequestInterceptors
+  showLoading?: boolean
 }

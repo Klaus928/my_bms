@@ -1,14 +1,18 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
-import store from './store'
+import { setupRouter } from './router'
+import { setupStore } from './store'
 import { registerGlobComp } from '@/global/registerGlobComp'
-import 'element-plus/lib/theme-chalk/index.css'
-import Request from '@/service'
+import { registerGlobProperties } from '@/global/registerGlobProps'
+import 'element-plus/dist/index.css'
 const app = createApp(App)
-app.use(store)
-app.use(router)
+
+// 安装状态
+setupStore(app)
 // 注册全局组件
 registerGlobComp(app)
-app.config.globalProperties.$http = Request
+// 在状态之后安装
+setupRouter(app)
+
+registerGlobProperties(app)
 app.mount('#app')

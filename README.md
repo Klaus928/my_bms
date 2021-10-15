@@ -1,4 +1,8 @@
-# my-bms
+# 跟着 coderwhy 学习的项目
+
+## 技术栈
+
+`Vue3 + Pinia + Vue Router + TypeScript + Axios + Eslint + Prettier + Husky`
 
 ## Project setup
 

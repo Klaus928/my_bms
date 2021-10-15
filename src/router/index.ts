@@ -1,29 +1,39 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import type { RouteRecordRaw } from 'vue-router'
-// import Home from '../views/Home.vue'
-
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    redirect: '/login'
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: () =>
-      import(/* webpackChunkName: "login" */ '@/views/login/login.vue')
-  },
-  {
-    path: '/main',
-    name: 'main',
-    component: () =>
-      import(/* webpackChunkName: "main" */ '@/views/main/main.vue')
-  }
-]
-
+import { App } from 'vue'
+import localCache from '@/utils/cache'
+import basicRoute from './modules/basic'
+import { mapMenuToRoute } from '@/utils/mapMenu'
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes: basicRoute
 })
-
+router.beforeEach(async (to: any, from, next) => {
+  if (to.name != 'login') {
+    if (!localCache.getCache('token')) {
+      next({ name: 'login' })
+    } else {
+      next()
+      // 解决动态路由找不到
+      // if (!router.hasRoute(to.name)) {
+      //   const routes = mapMenuToRoute()
+      //   routes.forEach((route) => {
+      //     router.addRoute('main', route)
+      //   })
+      //   next({ ...to, replace: true })
+      // } else {
+      //   next()
+      // }
+    }
+  } else {
+    // 登录过的用户不能进入登录页面
+    if (localCache.getCache('token')) {
+      next({ name: 'main' })
+    } else {
+      next()
+    }
+  }
+})
+export function setupRouter(app: App<Element>) {
+  app.use(router)
+}
 export default router
