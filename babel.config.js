@@ -1,4 +1,5 @@
 module.exports = {
+  presets: ['@vue/cli-plugin-babel/preset'],
   plugins: [
     [
       'import',
@@ -18,7 +19,11 @@ module.exports = {
           return `element-plus/lib/components/${name}/style/css`
         }
       }
-    ]
-  ],
-  presets: ['@vue/cli-plugin-babel/preset']
+    ],
+    [
+      'import',
+      { libraryName: 'ant-design-vue', libraryDirectory: 'es', style: 'css' },
+      'ant'
+    ] // `style: true` 会加载 less 文件
+  ]
 }

@@ -13,6 +13,5 @@ setupStore(app)
 registerGlobComp(app)
 // 在状态之后安装
 setupRouter(app)
-
 registerGlobProperties(app)
 app.mount('#app')

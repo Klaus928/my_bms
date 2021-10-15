@@ -3,8 +3,7 @@ import { mapMenuToRoute } from '@/utils/mapMenu'
 const basicRoute: Array<RouteRecordRaw> = [
   {
     path: '/',
-    component: () =>
-      import(/* webpackChunkName: "main" */ '@/views/main/main.vue')
+    redirect: '/main/analysis/overview'
   },
   {
     path: '/login',
