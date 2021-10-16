@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { App } from 'vue'
 import localCache from '@/utils/cache'
 import basicRoute from './modules/basic'
-import { mapMenuToRoute } from '@/utils/mapMenu'
+// import { mapMenuToRoute } from '@/utils/mapMenu'
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes: basicRoute

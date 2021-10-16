@@ -141,13 +141,13 @@ export default defineComponent({
       handleSearch()
     }
     //分页条数变化
-    const sizeChange = (size) => {
+    const sizeChange = () => {
       // const index = pageTableRef.value?.currentPage
       // handleSearch(index, size)
       handleSearch()
     }
     // 分页页码变化
-    const offsetChange = (offset) => {
+    const offsetChange = () => {
       // const size = pageTableRef.value?.pageSize
       // handleSearch(offset, size)
       handleSearch()

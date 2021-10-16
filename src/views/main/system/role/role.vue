@@ -60,7 +60,7 @@ export default defineComponent({
     }
     getMenuList()
     // 回显其他数据
-    const editCallback = (item) => {
+    const editCallback = () => {
       dialogConfig.formItems?.forEach((item) => {
         if (item.value === 'password') {
           item.hidden = true

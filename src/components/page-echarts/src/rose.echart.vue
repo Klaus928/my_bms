@@ -2,7 +2,7 @@
   <BaseEchart :option="option" />
 </template>
 <script lang="ts" setup>
-import { ref, computed, withDefaults, defineProps } from 'vue'
+import { computed, withDefaults, defineProps } from 'vue'
 import BaseEchart from '@/base-ui/echart'
 ;('RoseEchart')
 const props = withDefaults(

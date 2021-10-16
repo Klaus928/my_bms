@@ -1,6 +1,6 @@
 // service 统一出口
 import myRequest from './request/index'
-import localCache from '@/utils/cache'
+// import localCache from '@/utils/cache'
 const Request = new myRequest({
   baseURL: '/api',
   interceptors: {

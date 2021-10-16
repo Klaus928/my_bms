@@ -13,7 +13,7 @@
   </el-select>
 </template>
 <script lang="ts">
-import { defineComponent, ref, PropType, ToRefs, reactive, watch } from 'vue'
+import { defineComponent, ref, PropType, reactive, watch } from 'vue'
 import requestStore from '@/store/modules/requestStore'
 import { ISelect } from '../types'
 export default defineComponent({

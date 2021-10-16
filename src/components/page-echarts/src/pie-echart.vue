@@ -2,7 +2,7 @@
   <base-echart :option="option"></base-echart>
 </template>
 <script setup lang="ts">
-import { defineComponent, computed, defineProps, withDefaults } from 'vue'
+import { computed, defineProps, withDefaults } from 'vue'
 import BaseEchart from '@/base-ui/echart'
 import { IPieEchartData } from '../types'
 const props = withDefaults(

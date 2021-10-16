@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, getCurrentInstance } from 'vue'
+import { defineComponent } from 'vue'
 import { loginState } from '@/store'
 import setting from '@/store/modules/sys'
 import { mapState } from 'pinia'
@@ -55,7 +55,6 @@ export default defineComponent({
       'https://pica.zhimg.com/80/v2-d91571d2bc4f8a0f217a6790473b4aff_720w.jpg?source=1940ef5c'
     const login = loginState()
     const settingStore = setting()
-    const router = useRouter()
     const userMenus = login.userMenus
     const route = useRoute()
     settingStore.changeActiveIndex(route.path)

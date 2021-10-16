@@ -22,7 +22,7 @@ export default defineComponent({
   components: { PageWrapper, Description },
   setup() {
     // eslint-disable-next-line no-undef
-    const { dependencies, devDependencies, name, version } = $pkg || {}
+    const { dependencies, devDependencies } = $pkg || {}
     const schema: any[] = []
     const schemaDev: any[] = []
     // eslint-disable-next-line no-undef

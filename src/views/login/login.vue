@@ -5,12 +5,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance } from 'vue'
+import { defineComponent } from 'vue'
 import { loginState } from '@/store'
 import LoginPanel from './components/login-panel.vue'
 export default defineComponent({
   components: { LoginPanel },
-  setup(props, context) {
+  setup() {
     const loginStore = loginState()
     const handleClick = () => {
       // console.log(loginStore)

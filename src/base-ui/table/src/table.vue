@@ -94,7 +94,7 @@ export default defineComponent({
   emits: ['sizeChange', 'offsetChange'],
   computed: {
     getDate() {
-      return function (value, dataFormat) {
+      return function (value) {
         // const format =
         //   typeof dataFormat === 'string' ? dataFormat : 'YYYY-MM-DD HH:mm:ss'
         // return dayjs(value).format(format)

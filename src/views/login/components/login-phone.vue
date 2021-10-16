@@ -26,7 +26,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
-import { phoneInfo } from '@/types/user'
+// import { phoneInfo } from '@/types/user'
 export default defineComponent({
   name: 'LoginByPhone',
   setup() {

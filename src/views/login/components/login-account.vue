@@ -21,7 +21,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
 import type { ElForm } from 'element-plus'
-import { userInfo } from '@/types/user'
+// import { userInfo } from '@/types/user'
 import localCache from '@/utils/cache'
 import { loginState } from '@/store'
 export default defineComponent({

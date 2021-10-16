@@ -42,7 +42,7 @@ export default defineComponent({
       },
       options: [{ label: 'heelo', value: 'sss' }]
     }
-    const handleChange = (value) => {
+    const handleChange = () => {
       console.log('select', selectConfig.value)
     }
     return { selectConfig, handleChange }

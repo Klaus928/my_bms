@@ -31,7 +31,7 @@ class myRequest {
         }
         return config
       },
-      (err) => {
+      () => {
         ElMessage.error('请求失败')
       }
     )
@@ -61,7 +61,7 @@ class myRequest {
     )
   }
   request<T>(options: myRequestConfig): Promise<T> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       // 单个请求对request的拦截
       // 判断是否显示loading
       this.instance.request<any, T>(options).then((res) => {

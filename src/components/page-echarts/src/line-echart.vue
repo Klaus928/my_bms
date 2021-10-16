@@ -4,7 +4,6 @@
 <script lang="ts" setup>
 import { computed, withDefaults, defineProps } from 'vue'
 import BaseEchart from '@/base-ui/echart'
-import type { EChartsOption } from 'echarts'
 ;('RoseEchart')
 const props = withDefaults(
   defineProps<{

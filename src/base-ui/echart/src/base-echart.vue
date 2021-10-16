@@ -3,14 +3,7 @@
 </template>
 <script lang="ts" setup>
 'BaseEchart'
-import {
-  defineComponent,
-  ref,
-  defineProps,
-  withDefaults,
-  onMounted,
-  watchEffect
-} from 'vue'
+import { ref, defineProps, withDefaults, onMounted, watchEffect } from 'vue'
 import { useEchart } from '../hooks/useEchart'
 import { EChartsOption } from 'echarts'
 const props = withDefaults(
