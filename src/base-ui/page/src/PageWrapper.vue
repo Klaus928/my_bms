@@ -1,7 +1,11 @@
 <template>
   <div>
-    <PageHeader :ghost="ghost" :title="title" ref="headerRef"> </PageHeader>
-    <slot name="headerContent"></slot>
+    <div class="header">
+      <div class="title" :title="title">{{ title }}</div>
+      <div class="header-content">
+        <slot name="headerContent"></slot>
+      </div>
+    </div>
     <div class="overflow-hidden">
       <slot></slot>
     </div>
@@ -10,10 +14,9 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import { PageHeader } from 'ant-design-vue'
 
 export default defineComponent({
-  components: { PageHeader },
+  components: {},
   props: {
     ghost: { type: Boolean, default: true },
     title: { type: String, default: '' },
@@ -27,4 +30,22 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style lang="less" scoped>
+.header {
+  margin-bottom: 10px;
+}
+.title {
+  margin-right: 12px;
+  margin-bottom: 0;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 32px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.header-content {
+  margin-top: 20px;
+}
+</style>

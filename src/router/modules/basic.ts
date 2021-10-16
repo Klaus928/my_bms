@@ -17,6 +17,7 @@ const basicRoute: Array<RouteRecordRaw> = [
   {
     path: '/main',
     name: 'main',
+    redirect: '/main/analysis/overview',
     meta: {
       title: '首页'
     },

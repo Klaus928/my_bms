@@ -13,7 +13,7 @@ export default defineComponent({
   setup(props, context) {
     const loginStore = loginState()
     const handleClick = () => {
-      console.log(loginStore)
+      // console.log(loginStore)
     }
     return { handleClick, loginStore }
   }

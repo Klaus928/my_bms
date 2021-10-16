@@ -3,7 +3,24 @@ let webpack = require('webpack')
 module.exports = {
   outputDir: './build',
   // publicPath: './',
+  css: {
+    loaderOptions: {
+      less: {
+        lessOptions: {
+          // If you are using less-loader@5 please spread the lessOptions to options directly
+          modifyVars: {
+            'primary-color': '#000',
+            'link-color': '#1DA57A',
+            'border-radius-base': '2px',
+            'success-color': ' #52c41a' // 成功色
+          }
+        },
+        javascriptEnabled: true
+      }
+    }
+  },
   // 第一种配置方式 最后会合并
+
   configureWebpack: {
     resolve: {
       alias: {
@@ -19,6 +36,7 @@ module.exports = {
         }
       ]
     },
+
     plugins: [
       new webpack.ProvidePlugin({
         $pkg: [path.resolve(__dirname, './package.json')]
@@ -37,6 +55,7 @@ module.exports = {
       }
     }
   }
+
   // 覆盖
   // configureWebpack: (config) => {
   //   config.resolve.alias = {

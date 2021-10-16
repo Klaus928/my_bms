@@ -7,7 +7,10 @@
       <el-header height="60px" class="header"><NavHeader /></el-header>
       <el-main class="main">
         <router-view v-slot="{ Component }">
-          <transition>
+          <transition
+            enter-active-class="animate__animated animate__fadeInUp"
+            leave-active-class="animate__animated animate__fadeInDown"
+          >
             <component :is="Component" />
           </transition>
         </router-view>
@@ -53,13 +56,14 @@ export default defineComponent({
   .header {
     line-height: 60px;
     background-color: #b3c0d1;
+    overflow: hidden;
   }
   .aside {
     background-color: #d3dce6;
     transition: width 0.5s ease-in-out;
   }
   .main {
-    background-color: #e9eef3;
+    // background-color: #e9eef3;
   }
 }
 </style>

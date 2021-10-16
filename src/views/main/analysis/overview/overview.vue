@@ -4,11 +4,13 @@
       <div class="flex justify-between items-center">
         <span class="flex-1">
           <a :href="GITHUB_URL" target="_blank">{{ name }}</a>
-          是一个基于Vue3.0、 Element ui、TypeScript 创建的后台管理系统
+          是一个基于Vue3.0、 Element ui、TypeScript 创建的后台管理系统,
+          <el-link :href="GITHUB_URL">Github地址</el-link>
         </span>
       </div>
     </template>
-    <Description />
+    <Description title="生产环境依赖" :data="schema" />
+    <Description title="开发环境依赖" :data="schemaDev" />
   </PageWrapper>
 </template>
 
@@ -22,13 +24,16 @@ export default defineComponent({
     // eslint-disable-next-line no-undef
     const { dependencies, devDependencies, name, version } = $pkg || {}
     const schema: any[] = []
+    const schemaDev: any[] = []
     // eslint-disable-next-line no-undef
-    console.log($pkg)
     Object.keys(dependencies).forEach((key) => {
-      schema.push({ field: key, label: key })
+      schema.push({ field: key, label: dependencies[key] })
     })
-    console.log(schema)
-    return { schema }
+    Object.keys(devDependencies).forEach((key) => {
+      schemaDev.push({ field: key, label: devDependencies[key] })
+    })
+    const GITHUB_URL = process.env.VUE_APP_GITHUB_URL
+    return { schema, schemaDev, GITHUB_URL }
   }
 })
 </script>

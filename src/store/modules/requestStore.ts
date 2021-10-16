@@ -1,8 +1,6 @@
 import obj from '@/api'
 import { defineStore } from 'pinia'
 const { apis, url } = obj
-
-console.log('obj', obj)
 const requestStoreList = []
 const actions = {}
 for (const module in url) {

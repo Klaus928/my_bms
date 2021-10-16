@@ -27,7 +27,7 @@ for (const module in url) {
       obj = requestObject.data
       const temp: myRequestConfig = {
         url: requestObject.url,
-        method: url[module][name].method || 'get',
+        method: (url[module][name].method || 'get').toLowerCase(),
         responseType: url[module][name]['responseType'] || '',
         headers: url[module][name]['headers'] || {},
         showLoading: true
@@ -42,8 +42,8 @@ for (const module in url) {
         temp.data = obj.data
         temp.params = obj.params
       } else if (
-        url[module][name].method == 'get' ||
-        !url[module][name].method ||
+        temp.method == 'get' ||
+        temp.method == 'delete' ||
         (url[module][name].queryName &&
           url[module][name].queryName.includes('params'))
       ) {

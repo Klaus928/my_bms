@@ -27,7 +27,7 @@ router.beforeEach(async (to: any, from, next) => {
   } else {
     // 登录过的用户不能进入登录页面
     if (localCache.getCache('token')) {
-      next({ name: 'main' })
+      next({ name: 'overview' })
     } else {
       next()
     }

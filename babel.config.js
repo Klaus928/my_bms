@@ -19,11 +19,6 @@ module.exports = {
           return `element-plus/lib/components/${name}/style/css`
         }
       }
-    ],
-    [
-      'import',
-      { libraryName: 'ant-design-vue', libraryDirectory: 'es', style: 'css' },
-      'ant'
-    ] // `style: true` 会加载 less 文件
+    ]
   ]
 }

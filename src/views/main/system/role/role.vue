@@ -9,7 +9,7 @@
         <el-button size="mini" @click="handleEdit(scope.row)">
           <el-icon><edit /></el-icon>编辑
         </el-button>
-        <el-button size="mini" @click="handleDelete(scope.row)">
+        <el-button size="mini" @click="handleDelete(scope.row, 'name')">
           <el-icon>
             <delete />
           </el-icon>
@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, reactive } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import tableConfig from './config/table-config'
 import searchConfig from './config/search-config'
 import dialogConfig from './config/modal.config'
@@ -50,32 +50,17 @@ export default defineComponent({
   name: 'role',
   components: { Delete, Edit },
   setup() {
-    const store = requestStore['main/system/role']()
-    const [tablePageRef, refreshTableData] = useTablePage()
-    provide('refreshTableData', refreshTableData)
-    const defaultProps = {
-      children: 'children',
-      label: 'label'
-    }
+    const sysStore = requestStore['main/system/user']()
+    const { tablePageRef, handleDelete } = useTablePage('role', '角色')
     let menuData = reactive([])
     const getMenuList = () => {
-      store.getMenuList().then((res) => {
+      sysStore.getMenuList().then((res) => {
         menuData = res ?? []
       })
     }
     getMenuList()
-    const addCallback = () => {
-      dialogConfig.apiName = 'addRole'
-      Object.keys(dialogConfig.formObject).forEach((key) => {
-        dialogConfig.formObject[key] = ''
-      })
-    }
     // 回显其他数据
     const editCallback = (item) => {
-      dialogConfig.apiName = 'editRole'
-      Object.keys(dialogConfig.formObject).forEach((key) => {
-        dialogConfig.formObject[key] = item[key]
-      })
       dialogConfig.formItems?.forEach((item) => {
         if (item.value === 'password') {
           item.hidden = true
@@ -85,11 +70,12 @@ export default defineComponent({
     }
     const [pageModalRef, handleAdd, handleEdit] = usePageModal(
       '角色',
-      addCallback,
+      'role',
+      dialogConfig,
+      null,
       editCallback
     )
     return {
-      defaultProps,
       menuData,
       tableConfig,
       searchConfig,
@@ -97,7 +83,8 @@ export default defineComponent({
       pageModalRef,
       tablePageRef,
       handleAdd,
-      handleEdit
+      handleEdit,
+      handleDelete
     }
   }
 })

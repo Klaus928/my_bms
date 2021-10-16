@@ -44,7 +44,7 @@ export default defineComponent({
     const refreshTableData = inject<any>('refreshTableData')
     const baseFormRef = ref<InstanceType<typeof BaseForm>>()
     let dialogOption = reactive({
-      title: '新建用户',
+      title: '新建',
       visible: false
     })
     const handleClose = () => {

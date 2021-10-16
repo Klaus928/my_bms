@@ -38,7 +38,7 @@ class myRequest {
     this.instance.interceptors.response.use(
       (res) => {
         const data = res.data
-        const codes = [400, -1003]
+        const codes = [400, -1003, -1002]
         if (codes.findIndex((item) => item === data.code) != -1) {
           ElMessage.error(data.data)
         }

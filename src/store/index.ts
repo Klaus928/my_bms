@@ -47,7 +47,7 @@ export const loginState = defineStore('login', {
       routes.forEach((route) => {
         router.addRoute('main', route)
       })
-      router.push({ name: 'main' })
+      router.push({ name: 'overview' })
     },
     /**
      * 手机登录
