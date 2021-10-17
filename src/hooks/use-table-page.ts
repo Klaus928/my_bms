@@ -3,7 +3,7 @@ import TablePage from '@/components/table-page'
 import requestStoreList from '@/store/modules/requestStore'
 import { message, msgBox } from '@/utils/messagebox'
 // module='user' 默认删除api为deleteUser
-export function useTablePage(module?: string, title?: string) {
+export function useTablePage(title?: string, module?: string) {
   const sysStore = requestStoreList[`main/system/${module}`]()
   const tablePageRef = ref<InstanceType<typeof TablePage>>()
   const refreshTableData = () => {

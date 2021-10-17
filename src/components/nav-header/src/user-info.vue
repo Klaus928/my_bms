@@ -1,5 +1,6 @@
 <template>
   <div class="userinfo-container">
+    <notification />
     <el-dropdown trigger="click" placement="bottom-end">
       <span class="el-dropdown-link">
         <el-avatar
@@ -37,13 +38,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { loginState } from '@/store'
-import { Setting, SwitchButton, InfoFilled } from '@element-plus/icons'
+import { Setting, SwitchButton, InfoFilled, Bell } from '@element-plus/icons'
 import localCache from '@/utils/cache'
 import { ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'
+import notification from './notification.vue'
 export default defineComponent({
   name: 'UserInfo',
-  components: { Setting, SwitchButton, InfoFilled },
+  components: { Setting, SwitchButton, InfoFilled, Bell, notification },
   setup() {
     const router = useRouter()
     const login = loginState()
@@ -77,6 +79,12 @@ export default defineComponent({
   .el-dropdown-link {
     display: flex;
     align-items: center;
+  }
+  .badge {
+    margin-right: 10px;
+    position: relative;
+    top: -5px;
+    cursor: pointer;
   }
 }
 </style>

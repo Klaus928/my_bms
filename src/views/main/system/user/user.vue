@@ -43,7 +43,7 @@ export default defineComponent({
   name: 'user',
   components: { Delete, Edit },
   setup() {
-    const { tablePageRef, handleDelete } = useTablePage('user', '用户')
+    const { tablePageRef, handleDelete } = useTablePage('用户', 'user')
     const addCallback = () => {
       dialogConfig.formItems?.forEach((item) => {
         if (item.value === 'password') {

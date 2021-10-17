@@ -51,7 +51,7 @@ export default defineComponent({
   components: { Delete, Edit },
   setup() {
     const sysStore = requestStore['main/system/user']()
-    const { tablePageRef, handleDelete } = useTablePage('role', '角色')
+    const { tablePageRef, handleDelete } = useTablePage('角色', 'role')
     let menuData = reactive([])
     const getMenuList = () => {
       sysStore.getMenuList().then((res) => {
