@@ -1,16 +1,61 @@
 <template>
-  <div class="department">
-    <h2>department</h2>
+  <div class="role">
+    <table-page
+      :searchConfig="searchConfig"
+      :tableConfig="tableConfig"
+      ref="tablePageRef"
+    >
+      <template #handler="scope">
+        <el-button size="mini" @click="handleEdit(scope.row)">
+          <el-icon><edit /></el-icon>编辑
+        </el-button>
+        <el-button size="mini" @click="handleDelete(scope.row, 'name')">
+          <el-icon>
+            <delete />
+          </el-icon>
+          删除
+        </el-button>
+      </template>
+      <template #tableHeader>
+        <el-button type="primary" @click="handleAdd">新建部门</el-button>
+      </template>
+    </table-page>
+    <page-modal ref="pageModalRef" :dialogConfig="dialogConfig"> </page-modal>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-
+import { defineComponent, reactive } from 'vue'
+import tableConfig from './config/table-config'
+import searchConfig from './config/search-config'
+import dialogConfig from './config/modal.config'
+/*引入hooks*/
+import { usePageModal } from '@/hooks/use-page-modal'
+import { useTablePage } from '@/hooks/use-table-page'
+import { Delete, Edit } from '@element-plus/icons'
 export default defineComponent({
   name: 'department',
+  components: { Delete, Edit },
   setup() {
-    return {}
+    const { tablePageRef, handleDelete } = useTablePage('部门', 'department')
+    let menuData = reactive([])
+    // 回显其他数据
+    const [pageModalRef, handleAdd, handleEdit] = usePageModal(
+      '部门',
+      'department',
+      dialogConfig
+    )
+    return {
+      menuData,
+      tableConfig,
+      searchConfig,
+      dialogConfig,
+      pageModalRef,
+      tablePageRef,
+      handleAdd,
+      handleEdit,
+      handleDelete
+    }
   }
 })
 </script>
