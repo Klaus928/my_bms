@@ -23,7 +23,13 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'vue/valid-v-slot': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
-    'vue/no-unused-components': 'off'
+    'vue/no-unused-components': 'off',
+    'vue/no-parsing-error': [
+      2,
+      {
+        'x-invalid-end-tag': false
+      }
+    ]
     // ' vue/no-mutating-props': ['error', { propProps: false }]
     // 'prettier/prettier': 'error'
   }

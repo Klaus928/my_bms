@@ -2,6 +2,7 @@ import Request from '@/service'
 import { myRequestConfig } from '@/service/request/types'
 // const sysFiles = require.context('./modules/', true, /.ts$/)
 const files = require.context('@/views', true, /api\.ts$/)
+const sysFiles = require.context('./modules', true, /\.ts$/)
 const url: any = {}
 
 files.keys().forEach((key) => {

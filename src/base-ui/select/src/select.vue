@@ -8,7 +8,11 @@
       <el-option
         :label="option[select?.defaultProps?.label || 'label']"
         :value="option[select?.defaultProps?.value || 'value']"
-      ></el-option>
+      >
+        {{
+          options.length ? option[select?.defaultProps?.label || 'label'] : ''
+        }}
+      </el-option>
     </template>
   </el-select>
 </template>

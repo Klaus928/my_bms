@@ -87,7 +87,7 @@ export default defineComponent({
     const { apiName, apiModule } = toRefs(props.searchConfig)
     let loading = ref(false)
     const pageTableRef = ref<InstanceType<typeof BaseTable>>()
-    const baseFormRef = ref()
+    const baseFormRef = ref<InstanceType<typeof BaseForm>>()
     let tableData = ref([])
     let totalCount = ref(0)
     let formObject = reactive(

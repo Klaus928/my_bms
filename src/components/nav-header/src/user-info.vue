@@ -33,6 +33,7 @@
         </el-dropdown-menu>
       </template>
     </el-dropdown>
+    <SysSetting />
   </div>
 </template>
 <script lang="ts">
@@ -43,9 +44,17 @@ import localCache from '@/utils/cache'
 import { ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'
 import notification from './notification.vue'
+import SysSetting from './setting.vue'
 export default defineComponent({
   name: 'UserInfo',
-  components: { Setting, SwitchButton, InfoFilled, Bell, notification },
+  components: {
+    Setting,
+    SwitchButton,
+    InfoFilled,
+    Bell,
+    notification,
+    SysSetting
+  },
   setup() {
     const router = useRouter()
     const login = loginState()
@@ -67,7 +76,7 @@ export default defineComponent({
 .userinfo-container {
   .el-dropdown {
     cursor: pointer;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     line-height: 60px;
   }
