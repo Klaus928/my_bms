@@ -11,7 +11,7 @@
       <div v-if="content.length">
         <template v-for="item in content" :key="item">
           <p>
-            <el-icon class="my-icon">
+            <el-icon class="default-icon">
               <component :is="item.icon || 'chat-dot-round'" />
             </el-icon>
             <el-link :underline="false" style="color: #005980; display: inline">

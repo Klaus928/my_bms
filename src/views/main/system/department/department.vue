@@ -6,15 +6,8 @@
       ref="tablePageRef"
     >
       <template #handler="scope">
-        <el-button size="mini" @click="handleEdit(scope.row)">
-          <el-icon><edit /></el-icon>编辑
-        </el-button>
-        <el-button size="mini" @click="handleDelete(scope.row, 'name')">
-          <el-icon>
-            <delete />
-          </el-icon>
-          删除
-        </el-button>
+        <handle-edit-btn @click="handleEdit(scope.row)"></handle-edit-btn>
+        <handle-delete-btn @click="handleDelete(scope.row, 'name')" />
       </template>
       <template #tableHeader>
         <el-button type="primary" @click="handleAdd">新建部门</el-button>

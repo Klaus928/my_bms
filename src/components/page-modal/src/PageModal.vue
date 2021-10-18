@@ -4,6 +4,7 @@
       :title="dialogOption.title"
       v-model="dialogOption.visible"
       destroy-on-close
+      :width="680"
     >
       <slot name="content">
         <base-form v-bind="dialogConfig" ref="baseFormRef"></base-form>

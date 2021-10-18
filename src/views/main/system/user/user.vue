@@ -11,15 +11,8 @@
         >
       </template>
       <template #handler="scope">
-        <el-button size="mini" @click="handleEdit(scope.row)">
-          <el-icon><edit /></el-icon>编辑
-        </el-button>
-        <el-button size="mini" @click="handleDelete(scope.row, 'realname')">
-          <el-icon>
-            <delete />
-          </el-icon>
-          删除
-        </el-button>
+        <handle-edit-btn @click="handleEdit(scope.row)"></handle-edit-btn>
+        <handle-delete-btn @click="handleDelete(scope.row, 'realname')" />
       </template>
       <template #tableHeader>
         <el-button type="primary" @click="handleAdd">新建用户</el-button>
@@ -35,13 +28,11 @@ import { defineComponent } from 'vue'
 import searchConfig from './config/search-config'
 import tableConfig from './config/table-config'
 import dialogConfig from './config/model.config'
-import { Delete, Edit } from '@element-plus/icons'
-/*引入hooks*/
 import { usePageModal } from '@/hooks/use-page-modal'
 import { useTablePage } from '@/hooks/use-table-page'
 export default defineComponent({
   name: 'user',
-  components: { Delete, Edit },
+  components: {},
   setup() {
     const { tablePageRef, handleDelete } = useTablePage('用户', 'user')
     const addCallback = () => {

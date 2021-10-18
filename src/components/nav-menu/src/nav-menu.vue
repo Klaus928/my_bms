@@ -1,10 +1,10 @@
 <template>
   <div class="theme-container">
     <!-- <img src="~@/assets/images/theme.jpg" width="90" /> -->
-    <el-link>
-      <el-avatar :src="imgUrl" alt="头像"></el-avatar>
-    </el-link>
-    <span class="title" v-if="!isCollapse">Vue3+Ts</span>
+    <!-- <el-link>
+      <el-avatar src="@/assets/logo.png" alt="头像"></el-avatar>
+    </el-link> -->
+    <span class="title" v-if="!isCollapse">Vue3 + ts</span>
   </div>
   <div class="menu-container">
     <el-menu
@@ -44,15 +44,14 @@ import { defineComponent } from 'vue'
 import { loginState } from '@/store'
 import setting from '@/store/modules/sys'
 import { mapState } from 'pinia'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
+// import url from '@/assets/logo.png'
 export default defineComponent({
   name: 'NavMenu',
   computed: {
     ...mapState(setting, ['isCollapse', 'activeIndex'])
   },
   setup() {
-    const imgUrl =
-      'https://pica.zhimg.com/80/v2-d91571d2bc4f8a0f217a6790473b4aff_720w.jpg?source=1940ef5c'
     const login = loginState()
     const settingStore = setting()
     const userMenus = login.userMenus
@@ -63,8 +62,6 @@ export default defineComponent({
       console.log(key, keyPath)
     }
     return {
-      imgUrl,
-      // activeIndex,
       userMenus,
       handleOpen
     }
@@ -75,10 +72,10 @@ export default defineComponent({
 <style lang="less" scoped>
 .theme-container {
   white-space: nowrap;
-  margin-top: 20px;
+  margin: 20px;
   .title {
     font-weight: 700;
-    font-size: 18px;
+    font-size: 24px;
     margin-left: 10px;
   }
 }

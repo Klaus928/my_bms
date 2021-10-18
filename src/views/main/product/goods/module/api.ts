@@ -1,8 +1,8 @@
 import { IApi } from '@/types/request'
 const apiItems: IApi = {
-  getRoleList: { url: '/role/list', method: 'POST' },
-  deleteRole: {
-    url: '/role/',
+  getGoodsList: { url: '/goods/list', method: 'POST' },
+  deleteGoods: {
+    url: '/goods/',
     method: 'DELETE',
     beforeRequest: (url, data) => {
       url = url + data
@@ -10,16 +10,12 @@ const apiItems: IApi = {
       return { url, data }
     }
   },
-  getDeptList: {
-    method: 'POST',
-    url: '/department/list'
-  },
-  addRole: {
-    url: '/role',
+  addGoods: {
+    url: '/goods',
     method: 'POST'
   },
-  editRole: {
-    url: '/role/',
+  editGoods: {
+    url: '/goods/',
     method: 'PATCH',
     beforeRequest: (url, data) => {
       if (data && data.id) {

@@ -2,15 +2,8 @@
   <div class="goods">
     <table-page :tableConfig="tableConfig" :searchConfig="searchConfig">
       <template #handler>
-        <el-button size="mini">
-          <el-icon><edit /></el-icon>编辑
-        </el-button>
-        <el-button size="mini">
-          <el-icon>
-            <delete />
-          </el-icon>
-          删除
-        </el-button>
+        <handle-edit-btn />
+        <handle-delete-btn />
       </template>
       <template #imgColumn="scope">
         <el-image
@@ -34,9 +27,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { tableConfig, searchConfig } from './config'
-import { Edit, Delete } from '@element-plus/icons'
+/*引入hooks*/
+import { usePageModal } from '@/hooks/use-page-modal'
 export default defineComponent({
-  components: { Edit, Delete },
   name: 'goods',
   setup() {
     return { tableConfig, searchConfig }

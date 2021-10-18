@@ -22,7 +22,6 @@ const apiItems: IApi = {
     url: '/department/',
     method: 'PATCH',
     beforeRequest: (url, data) => {
-      debugger
       if (data && data.id) {
         // 编辑
         url = url + data.id

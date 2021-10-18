@@ -7,6 +7,10 @@ import BaseTable from '@/base-ui/table'
 import BaseDialog from '@/base-ui/dialog'
 import PageModal from '@/components/page-modal'
 // 统一在这里导入项目公共组件
+import {
+  handleEditBtn,
+  handleDeleteBtn
+} from '@/components/table-page/src/button'
 const components = [BaseForm, TablePage, BaseTable, BaseDialog, PageModal]
 export function registerGlobComp(app: App): void {
   components.forEach((component) => {
@@ -17,4 +21,6 @@ export function registerGlobComp(app: App): void {
   })
   const ElementPlus = require('element-plus')
   app.use(ElementPlus, { locale })
+  app.component('handle-edit-btn', handleEditBtn)
+  app.component('handle-delete-btn', handleDeleteBtn)
 }

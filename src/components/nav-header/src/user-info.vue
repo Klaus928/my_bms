@@ -51,7 +51,7 @@ export default defineComponent({
     const login = loginState()
     const userName: any = login.userInfo.name
     const handleLogout = () => {
-      ElMessageBox.confirm('确认退出', {
+      ElMessageBox.confirm('确认退出？', {
         cancelButtonText: '取消',
         confirmButtonText: '确认'
       }).then(() => {
