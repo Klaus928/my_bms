@@ -21,11 +21,12 @@
 
 <script lang="ts">
 import BaseSelect from '@/base-ui/select'
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import NavMenu from '@/components/nav-menu'
 import NavHeader from '@/components/nav-header'
 import setting from '@/store/modules/sys'
 import { mapState } from 'pinia'
+import settingStore from '@/store/modules/sys'
 export default defineComponent({
   components: { NavMenu, NavHeader, BaseSelect },
   computed: {
@@ -45,6 +46,18 @@ export default defineComponent({
     const handleChange = () => {
       console.log('select', selectConfig.value)
     }
+    const store = settingStore()
+    // 控制侧边栏显示与隐藏
+    onMounted(() => {
+      addEventListener('resize', () => {
+        const windowWidth = document.documentElement.clientWidth
+        if (windowWidth < 1000) {
+          store.changeCollapse(true)
+        } else {
+          store.changeCollapse(false)
+        }
+      })
+    })
     return { selectConfig, handleChange }
   }
 })

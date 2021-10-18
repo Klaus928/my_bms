@@ -1,8 +1,8 @@
-# 跟着 coderwhy 学习的项目
+# Vue3 后台管理系统
 
 ## 技术栈
 
-`Vue3 + Pinia + Vue Router + TypeScript + Axios + Eslint + Prettier + Husky`
+`Vue3 + Element + Pinia + Vue Router + TypeScript + Axios + Eslint + Prettier + Husky`
 
 ## 在线预览
 

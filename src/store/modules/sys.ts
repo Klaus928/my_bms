@@ -7,8 +7,12 @@ const setting = defineStore('sys', {
     }
   },
   actions: {
+    // toggle
     changeIsCollapse() {
       this.isCollapse = !this.isCollapse
+    },
+    changeCollapse(value: boolean) {
+      this.isCollapse = value
     },
     changeActiveIndex(value) {
       this.activeIndex = value

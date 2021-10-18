@@ -28,6 +28,7 @@ import { defineComponent } from 'vue'
 import searchConfig from './config/search-config'
 import tableConfig from './config/table-config'
 import dialogConfig from './config/model.config'
+/*引入hooks*/
 import { usePageModal } from '@/hooks/use-page-modal'
 import { useTablePage } from '@/hooks/use-table-page'
 export default defineComponent({
