@@ -6,6 +6,8 @@ import { registerGlobComp } from '@/global/registerGlobComp'
 import { registerGlobProperties } from '@/global/registerGlobProps'
 import 'element-plus/dist/index.css'
 import '@/assets/css/base.less'
+import 'element-plus/theme-chalk/display.css'
+
 const app = createApp(App)
 
 // 安装状态

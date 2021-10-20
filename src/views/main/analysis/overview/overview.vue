@@ -9,14 +9,15 @@
         </span>
       </div>
     </template>
-    <Description title="生产环境依赖" :data="schema" />
-    <Description title="开发环境依赖" :data="schemaDev" />
+    <Description title="生产环境依赖" :data="schema" :column="column" />
+    <Description title="开发环境依赖" :data="schemaDev" :column="column" />
   </PageWrapper>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { PageWrapper, Description } from '@/base-ui/page'
+import settingStore from '@/store/modules/sys'
 export default defineComponent({
   name: 'overview',
   components: { PageWrapper, Description },
@@ -33,7 +34,14 @@ export default defineComponent({
       schemaDev.push({ field: key, label: devDependencies[key] })
     })
     const GITHUB_URL = process.env.VUE_APP_GITHUB_URL
-    return { schema, schemaDev, GITHUB_URL }
+
+    const store = settingStore()
+    const column = ref(3)
+    const width = document.documentElement.clientWidth
+    if (width < 768) {
+      column.value = 1
+    }
+    return { schema, schemaDev, GITHUB_URL, column }
   }
 })
 </script>

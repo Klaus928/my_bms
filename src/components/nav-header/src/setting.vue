@@ -26,6 +26,7 @@ import { defineComponent, ref } from 'vue'
 import { Setting } from '@element-plus/icons'
 import sysStore from '@/store/modules/sys'
 export default defineComponent({
+  name: 'SysSetting',
   components: { Setting },
   setup() {
     const store = sysStore()

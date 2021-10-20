@@ -3,7 +3,8 @@ const setting = defineStore('sys', {
   state() {
     return {
       isCollapse: false,
-      activeIndex: ''
+      activeIndex: '',
+      screenWidth: 1920
     }
   },
   actions: {
@@ -16,6 +17,9 @@ const setting = defineStore('sys', {
     },
     changeActiveIndex(value) {
       this.activeIndex = value
+    },
+    changeScreenWidth(value) {
+      this.screenWidth = value
     }
   }
 })

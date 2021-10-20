@@ -100,8 +100,8 @@ export default defineComponent({
       type: Object,
       default() {
         return {
-          xl: 6,
-          lg: 8,
+          xl: 4,
+          lg: 6,
           md: 12,
           sm: 24,
           xs: 24
@@ -114,7 +114,7 @@ export default defineComponent({
     },
     size: {
       type: String,
-      default: 'medium '
+      default: 'medium'
     }
   },
   computed: {

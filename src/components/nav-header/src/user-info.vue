@@ -33,7 +33,7 @@
         </el-dropdown-menu>
       </template>
     </el-dropdown>
-    <SysSetting />
+    <SysSetting class="hidden-sm-and-down" />
   </div>
 </template>
 <script lang="ts">

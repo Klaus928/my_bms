@@ -4,7 +4,7 @@
       :title="dialogOption.title"
       v-model="dialogOption.visible"
       destroy-on-close
-      :width="680"
+      :width="480"
     >
       <slot name="content">
         <base-form v-bind="dialogConfig" ref="baseFormRef"></base-form>
@@ -76,7 +76,6 @@ export default defineComponent({
         emit('submit')
       }
     }
-
     return { baseFormRef, dialogOption, handleClose, handleSubmit }
   }
 })

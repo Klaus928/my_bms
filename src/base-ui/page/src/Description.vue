@@ -4,7 +4,7 @@
       <div class="header">
         <span>{{ title }}</span>
       </div>
-      <el-descriptions class="margin-top" :column="3" :size="size" border>
+      <el-descriptions class="margin-top" :column="column" :size="size" border>
         <template v-for="item in data" :key="item.field">
           <el-descriptions-item :label="item.field">
             <el-tag size="small">{{ item.label }} </el-tag>
@@ -26,7 +26,8 @@ export default defineComponent({
       type: Array,
       default: () => []
     },
-    size: { type: String, default: 'small' }
+    size: { type: String, default: 'small' },
+    column: { type: Number, default: 3 }
   },
   setup() {
     return {}
